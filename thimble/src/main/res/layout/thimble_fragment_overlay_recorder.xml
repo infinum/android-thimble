@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/thimble_card_margin"
+        app:cardCornerRadius="@dimen/thimble_card_corner_radius_primary"
+        app:strokeColor="@color/thimble_color_card_stroke"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/recorderSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/listPreferredItemHeightSmall"
+                android:layout_marginStart="@dimen/thimble_title_margin"
+                android:layout_marginEnd="@dimen/thimble_title_margin"
+                android:enabled="false"
+                android:text="@string/thimble_overlay_title_recorder"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_description_margin"
+                android:layout_marginTop="@dimen/thimble_description_margin"
+                android:layout_marginEnd="@dimen/thimble_description_margin"
+                android:text="@string/thimble_overlay_description_recorder"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_section_title_margin"
+                android:layout_marginTop="@dimen/thimble_section_title_margin_top"
+                android:layout_marginEnd="@dimen/thimble_section_title_margin"
+                android:text="@string/thimble_overlay_section_title_options"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_section_title_margin"
+                android:layout_marginEnd="@dimen/thimble_section_title_margin"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/thimble_section_option_margin_end"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/thimble_overlay_option_title_record_delay"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/delayValueLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thimble_section_option_margin_start"
+                    android:gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/decreaseDelayButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="@dimen/thimble_gap_button_size"
+                    android:layout_height="@dimen/thimble_gap_button_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/thimble_gap_button_margin"
+                    android:layout_marginEnd="@dimen/thimble_gap_button_margin"
+                    android:enabled="false"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="@dimen/thimble_gap_button_corner_radius"
+                    app:icon="@drawable/thimble_ic_minus"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/delaySlider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:stepSize="1"
+                    android:value="@integer/thimble_delay_default"
+                    android:valueFrom="@integer/thimble_delay_from"
+                    android:valueTo="@integer/thimble_delay_to"
+                    app:haloRadius="@dimen/thimble_slider_halo_radius"
+                    app:thumbRadius="@dimen/thimble_slider_thumb_radius" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/increaseDelayButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="@dimen/thimble_gap_button_size"
+                    android:layout_height="@dimen/thimble_gap_button_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/thimble_gap_button_margin"
+                    android:layout_marginEnd="@dimen/thimble_gap_button_margin"
+                    android:enabled="false"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="@dimen/thimble_gap_button_corner_radius"
+                    app:icon="@drawable/thimble_ic_plus"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:strokeWidth="0dp" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_section_title_margin"
+                android:layout_marginTop="@dimen/thimble_section_title_margin_top"
+                android:layout_marginEnd="@dimen/thimble_section_title_margin"
+                android:text="@string/thimble_overlay_section_title_screenshot"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_section_title_margin"
+                android:layout_marginEnd="@dimen/thimble_section_title_margin"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/thimble_section_option_margin_end"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/thimble_overlay_option_title_compression"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/screenshotCompressionValueLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thimble_section_option_margin_start"
+                    android:gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/decreaseScreenshotCompressionButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="@dimen/thimble_gap_button_size"
+                    android:layout_height="@dimen/thimble_gap_button_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/thimble_gap_button_margin"
+                    android:layout_marginEnd="@dimen/thimble_gap_button_margin"
+                    android:enabled="false"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="@dimen/thimble_gap_button_corner_radius"
+                    app:icon="@drawable/thimble_ic_minus"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/screenshotCompressionSlider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:stepSize="1"
+                    android:value="@integer/thimble_screenshot_compression_default"
+                    android:valueFrom="@integer/thimble_screenshot_compression_from"
+                    android:valueTo="@integer/thimble_screenshot_compression_to"
+                    app:haloRadius="@dimen/thimble_slider_halo_radius"
+                    app:thumbRadius="@dimen/thimble_slider_thumb_radius" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/increaseScreenshotCompressionButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="@dimen/thimble_gap_button_size"
+                    android:layout_height="@dimen/thimble_gap_button_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/thimble_gap_button_margin"
+                    android:layout_marginEnd="@dimen/thimble_gap_button_margin"
+                    android:enabled="false"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="@dimen/thimble_gap_button_corner_radius"
+                    app:icon="@drawable/thimble_ic_plus"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:strokeWidth="0dp" />
+
+            </LinearLayout>
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/screenshotToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/listPreferredItemHeightSmall"
+                android:layout_marginTop="@dimen/thimble_section_option_margin_top"
+                android:paddingEnd="2dp"
+                app:menu="@menu/thimble_recorder"
+                app:navigationIcon="@drawable/thimble_ic_share" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_section_title_margin"
+                android:layout_marginTop="@dimen/thimble_section_title_margin_top"
+                android:layout_marginEnd="@dimen/thimble_section_title_margin"
+                android:text="@string/thimble_overlay_section_title_video"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_section_option_margin"
+                android:layout_marginTop="@dimen/thimble_section_option_margin_top"
+                android:layout_marginEnd="@dimen/thimble_section_option_margin"
+                android:text="@string/thimble_overlay_option_title_audio"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/audioSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/thimble_title_margin"
+                android:layout_marginEnd="@dimen/thimble_title_margin"
+                android:enabled="false"
+                android:text="@string/thimble_option_video_audio"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_section_option_margin"
+                android:layout_marginTop="@dimen/thimble_section_option_margin_top"
+                android:layout_marginEnd="@dimen/thimble_section_option_margin"
+                android:text="@string/thimble_overlay_option_title_video_quality"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/videoQualityToggleGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_section_option_margin"
+                android:layout_marginTop="@dimen/thimble_section_option_margin_top"
+                android:layout_marginEnd="@dimen/thimble_section_option_margin"
+                android:weightSum="3"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/lowButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="@string/thimble_option_video_quality_low" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mediumButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="@string/thimble_option_video_quality_medium" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/highButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="@string/thimble_option_video_quality_high" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/videoToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/listPreferredItemHeightSmall"
+                android:layout_marginTop="@dimen/thimble_section_option_margin_top"
+                android:layout_marginBottom="2dp"
+                android:paddingEnd="2dp"
+                app:menu="@menu/thimble_recorder"
+                app:navigationIcon="@drawable/thimble_ic_share" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

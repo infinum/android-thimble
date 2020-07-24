@@ -16,6 +16,7 @@ import com.infinum.thimble.extensions.fromPercentage
 import com.infinum.thimble.extensions.toPercentage
 import com.infinum.thimble.models.MockupOrientation
 import com.infinum.thimble.models.configuration.MockupConfiguration
+import com.infinum.thimble.ui.Defaults
 import com.infinum.thimble.ui.fragments.shared.AbstractOverlayFragment
 import com.infinum.thimble.ui.shared.viewBinding
 import java.util.Locale
@@ -36,6 +37,8 @@ internal class MockupOverlayFragment :
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
+            cardView.shapeAppearanceModel = Defaults.createShapeAppearanceModel()
+
             mockupOpacitySlider.isEnabled = false
             portraitMockup.isEnabled = false
             landscapeMockup.isEnabled = false
@@ -88,7 +91,6 @@ internal class MockupOverlayFragment :
 
     override fun configure(configuration: MockupConfiguration) {
         with(binding) {
-            mockupOverlaySwitch.setOnCheckedChangeListener(null)
             mockupOverlaySwitch.isChecked = configuration.enabled
             mockupOverlaySwitch.setOnCheckedChangeListener { _, isChecked ->
                 serviceActivity?.toggleMockup(isChecked)
@@ -106,7 +108,7 @@ internal class MockupOverlayFragment :
             mockupOpacitySlider.clearOnChangeListeners()
             mockupOpacitySlider.addOnChangeListener { _, value, _ ->
                 serviceActivity?.updateMockupOpacity(value.fromPercentage())
-                mockupOpacityValueLabel.text = value.toPercentage()
+                mockupOpacityValueLabel.text = value.toPercentage(multiplier = 1)
             }
 
             portraitMockupLayout.updateLayoutParams<ConstraintLayout.LayoutParams> {

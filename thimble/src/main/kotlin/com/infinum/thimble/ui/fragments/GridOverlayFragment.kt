@@ -15,6 +15,7 @@ import com.infinum.thimble.extensions.toHalf
 import com.infinum.thimble.extensions.toPx
 import com.infinum.thimble.models.LineOrientation
 import com.infinum.thimble.models.configuration.GridConfiguration
+import com.infinum.thimble.ui.Defaults
 import com.infinum.thimble.ui.fragments.shared.AbstractOverlayFragment
 import com.infinum.thimble.ui.shared.viewBinding
 import com.skydoves.colorpickerview.ColorEnvelope
@@ -35,6 +36,8 @@ internal class GridOverlayFragment :
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
+            cardView.shapeAppearanceModel = Defaults.createShapeAppearanceModel()
+
             horizontalGridSizeSlider.isEnabled = false
             verticalGridSizeSlider.isEnabled = false
         }
@@ -61,7 +64,6 @@ internal class GridOverlayFragment :
 
     override fun configure(configuration: GridConfiguration) {
         with(binding) {
-            gridOverlaySwitch.setOnCheckedChangeListener(null)
             gridOverlaySwitch.isChecked = configuration.enabled
             gridOverlaySwitch.setOnCheckedChangeListener { _, isChecked ->
                 serviceActivity?.toggleGrid(isChecked)

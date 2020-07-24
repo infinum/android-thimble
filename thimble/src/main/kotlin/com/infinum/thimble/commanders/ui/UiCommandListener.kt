@@ -6,7 +6,8 @@ import com.infinum.thimble.commanders.shared.Command
 
 internal class UiCommandListener(
     private val onRegister: (Bundle) -> Unit,
-    private val onUnregister: (Bundle) -> Unit
+    private val onUnregister: (Bundle) -> Unit,
+    private val onSelfStop: (Bundle) -> Unit
 ) {
 
     fun onClientCommand(message: Message) =
@@ -15,6 +16,7 @@ internal class UiCommandListener(
                 when (command) {
                     Command.REGISTER -> onRegister(message.obj as Bundle)
                     Command.UNREGISTER -> onUnregister(message.obj as Bundle)
+                    Command.UPDATE -> onSelfStop(message.obj as Bundle)
                     else -> throw NotImplementedError()
                 }
             }

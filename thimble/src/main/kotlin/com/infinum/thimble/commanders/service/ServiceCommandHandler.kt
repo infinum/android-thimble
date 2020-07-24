@@ -16,6 +16,7 @@ internal class ServiceCommandHandler(
                     Target.GRID -> commandListener.onGridCommand(message)
                     Target.MOCKUP -> commandListener.onMockupCommand(message)
                     Target.MAGNIFIER -> commandListener.onMagnifierCommand(message)
+                    Target.RECORDER -> commandListener.onRecorderCommand(message)
                 }
             } ?: super.handleMessage(message)
     }

@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="thimble_color_primary">#5968A7</color>
-    <color name="thimble_color_accent">#5968A7</color>
-    <color name="thimble_color_clear_button">#D8262C</color>
+    <color name="thimble_color_primary">#9700cc</color>
+    <color name="thimble_color_accent">#9700cc</color>
+    <color name="thimble_color_grid_horizontal">#ff48c4</color>
+    <color name="thimble_color_grid_vertical">#2bd1fc</color>
+    <color name="thimble_color_clear_button">#ff3f3f</color>
     <color name="thimble_magnifier_content">#636363</color>
     <color name="thimble_magnifier_value">#FAFAFA</color>
+    <color name="thimble_notification_tint_disabled">#CACACA</color>
+    <color name="thimble_color_card_stroke">#c04df9</color>
+    <color name="thimble_color_background">#ffffff</color>
+    <color name="thimble_color_counter">#ffffff</color>
+    <color name="thimble_color_provider_icon">#686868</color>
 </resources>

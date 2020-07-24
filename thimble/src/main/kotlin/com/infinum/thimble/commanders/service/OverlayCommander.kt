@@ -128,6 +128,40 @@ internal abstract class OverlayCommander(
         )
     }
 
+    protected fun showRecorder() {
+        sendMessage(
+            Message.obtain(
+                null,
+                Target.RECORDER.code,
+                Command.SHOW.code,
+                0
+            )
+        )
+    }
+
+    protected fun hideRecorder() {
+        sendMessage(
+            Message.obtain(
+                null,
+                Target.RECORDER.code,
+                Command.HIDE.code,
+                0
+            )
+        )
+    }
+
+    protected fun updateRecorder(parameter: OverlayParameter, params: Bundle) {
+        sendMessage(
+            Message.obtain(
+                null,
+                Target.RECORDER.code,
+                Command.UPDATE.code,
+                parameter.code,
+                params
+            )
+        )
+    }
+
     fun unregister() {
         sendMessage(
             Message.obtain(

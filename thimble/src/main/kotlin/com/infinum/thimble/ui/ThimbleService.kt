@@ -3,23 +3,24 @@ package com.infinum.thimble.ui
 import android.app.Service
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.IBinder
 import android.os.Messenger
 import androidx.annotation.RestrictTo
 import androidx.core.os.bundleOf
 import com.infinum.thimble.builders.ThimbleNotificationBuilder
-import com.infinum.thimble.extensions.toPx
 import com.infinum.thimble.commanders.service.ServiceCommandHandler
 import com.infinum.thimble.commanders.service.ServiceCommandListener
 import com.infinum.thimble.commanders.ui.UiCommander
+import com.infinum.thimble.extensions.toPx
+import com.infinum.thimble.models.BundleKeys
 import com.infinum.thimble.models.ColorModel
 import com.infinum.thimble.models.ServiceAction
-import com.infinum.thimble.models.BundleKeys
+import com.infinum.thimble.models.VideoQuality
 import com.infinum.thimble.models.configuration.ThimbleConfiguration
 import com.infinum.thimble.ui.overlays.grid.GridOverlay
 import com.infinum.thimble.ui.overlays.magnifier.MagnifierOverlay
 import com.infinum.thimble.ui.overlays.mockup.MockupOverlay
+import com.infinum.thimble.ui.overlays.recorder.RecorderOverlay
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 internal class ThimbleService : Service() {
@@ -28,20 +29,24 @@ internal class ThimbleService : Service() {
 
     private var configuration = ThimbleConfiguration()
 
+    private lateinit var notifications: ThimbleNotificationBuilder
+
     private lateinit var gridOverlay: GridOverlay
     private lateinit var mockupOverlay: MockupOverlay
     private lateinit var magnifierOverlay: MagnifierOverlay
+    private lateinit var recorderOverlay: RecorderOverlay
 
     private var isRunning: Boolean = false
 
     override fun onCreate() {
         super.onCreate()
 
+        notifications = ThimbleNotificationBuilder(this)
+
         gridOverlay = GridOverlay(this)
-        mockupOverlay =
-            MockupOverlay(this)
-        magnifierOverlay =
-            MagnifierOverlay(this)
+        mockupOverlay = MockupOverlay(this)
+        magnifierOverlay = MagnifierOverlay(this)
+        recorderOverlay = RecorderOverlay(this)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -51,6 +56,18 @@ internal class ThimbleService : Service() {
                     ServiceAction.START -> startService()
                     ServiceAction.STOP -> stopService()
                     ServiceAction.RESET -> resetOverlays()
+                    ServiceAction.GRID -> toggleGrid(
+                        intent.getBooleanExtra(BundleKeys.TOGGLE.name, false)
+                    )
+                    ServiceAction.MOCKUP -> toggleMockup(
+                        intent.getBooleanExtra(BundleKeys.TOGGLE.name, false)
+                    )
+                    ServiceAction.MAGNIFIER -> toggleMagnifier(
+                        intent.getBooleanExtra(BundleKeys.TOGGLE.name, false)
+                    )
+                    ServiceAction.RECORDER -> toggleRecorder(
+                        intent.getBooleanExtra(BundleKeys.TOGGLE.name, false)
+                    )
                 }
             }
         }
@@ -68,12 +85,14 @@ internal class ThimbleService : Service() {
                             grid = configuration.grid.copy(enabled = true)
                         )
                         gridOverlay.show()
+                        updateNotification()
                     },
                     onHideGridOverlay = {
                         configuration = configuration.copy(
                             grid = configuration.grid.copy(enabled = false)
                         )
                         gridOverlay.hide()
+                        updateNotification()
                     },
                     onUpdateGridOverlayHorizontalColor = {
                         configuration = configuration.copy(
@@ -124,12 +143,14 @@ internal class ThimbleService : Service() {
                             mockup = configuration.mockup.copy(enabled = true)
                         )
                         mockupOverlay.show()
+                        updateNotification()
                     },
                     onHideMockupOverlay = {
                         configuration = configuration.copy(
                             mockup = configuration.mockup.copy(enabled = false)
                         )
                         mockupOverlay.hide()
+                        updateNotification()
                     },
                     onUpdateMockupOverlayOpacity = {
                         configuration = configuration.copy(
@@ -169,12 +190,14 @@ internal class ThimbleService : Service() {
                             magnifier = configuration.magnifier.copy(enabled = true)
                         )
                         magnifierOverlay.show()
+                        updateNotification()
                     },
                     onHideMagnifierOverlay = {
                         configuration = configuration.copy(
                             magnifier = configuration.magnifier.copy(enabled = false)
                         )
                         magnifierOverlay.hide()
+                        updateNotification()
                     },
                     onUpdateMagnifierOverlayColorModel = {
                         configuration = configuration.copy(
@@ -188,6 +211,67 @@ internal class ThimbleService : Service() {
                             )
                         )
                         magnifierOverlay.update(configuration.magnifier)
+                    },
+                    onShowRecorderOverlay = {
+                        configuration = configuration.copy(
+                            recorder = configuration.recorder.copy(enabled = true)
+                        )
+                        recorderOverlay.show()
+                        updateNotification()
+                    },
+                    onHideRecorderOverlay = {
+                        configuration = configuration.copy(
+                            recorder = configuration.recorder.copy(enabled = false)
+                        )
+                        recorderOverlay.hide()
+                        updateNotification()
+                    },
+                    onUpdateRecorderDelay = {
+                        configuration = configuration.copy(
+                            recorder = configuration.recorder.copy(
+                                recorderDelay =
+                                it.getInt(
+                                    BundleKeys.RECORDER_DELAY.name,
+                                    configuration.recorder.recorderDelay
+                                )
+                            )
+                        )
+                        recorderOverlay.update(configuration.recorder)
+                    },
+                    onUpdateRecorderScreenshotCompression = {
+                        configuration = configuration.copy(
+                            recorder = configuration.recorder.copy(
+                                compression = it.getFloat(
+                                    BundleKeys.SCREENSHOT_COMPRESSION.name,
+                                    configuration.recorder.compression
+                                )
+                            )
+                        )
+                        recorderOverlay.update(configuration.recorder)
+                    },
+                    onUpdateRecorderAudio = {
+                        configuration = configuration.copy(
+                            recorder = configuration.recorder.copy(
+                                recordInternalAudio = it.getBoolean(
+                                    BundleKeys.RECORDER_AUDIO.name,
+                                    configuration.recorder.recordInternalAudio
+                                )
+                            )
+                        )
+                        recorderOverlay.update(configuration.recorder)
+                    },
+                    onUpdateRecorderVideoQuality = {
+                        configuration = configuration.copy(
+                            recorder = configuration.recorder.copy(
+                                videoQuality = VideoQuality(
+                                    it.getLong(
+                                        BundleKeys.VIDEO_QUALITY.name,
+                                        configuration.recorder.videoQuality.bitrate
+                                    )
+                                ) ?: VideoQuality.HIGH
+                            )
+                        )
+                        recorderOverlay.update(configuration.recorder)
                     },
                     onUnregister = this::unregister
                 )
@@ -205,6 +289,10 @@ internal class ThimbleService : Service() {
             magnifierOverlay.hide()
             magnifierOverlay.show()
         }
+        if (recorderOverlay.isShowing()) {
+            recorderOverlay.hide()
+            recorderOverlay.show()
+        }
     }
 
     private fun startService() {
@@ -214,7 +302,7 @@ internal class ThimbleService : Service() {
             return
         }
 
-        ThimbleNotificationBuilder(this).also { it.show() }
+        notifications.show()
 
         isRunning = true
     }
@@ -224,6 +312,19 @@ internal class ThimbleService : Service() {
         gridOverlay.hide()
         mockupOverlay.hide()
         magnifierOverlay.hide()
+        recorderOverlay.hide()
+
+        configuration = configuration.copy(
+            enabled = false,
+            grid = configuration.grid.copy(enabled = false),
+            mockup = configuration.mockup.copy(enabled = false),
+            magnifier = configuration.magnifier.copy(enabled = false),
+            recorder = configuration.recorder.copy(enabled = false)
+        )
+
+        commander?.notifySelfStop(
+            bundleOf(BundleKeys.CONFIGURATION.name to configuration)
+        )
 
         try {
             stopForeground(true)
@@ -237,8 +338,8 @@ internal class ThimbleService : Service() {
     private fun resetOverlays() {
         configuration = configuration.copy(
             grid = configuration.grid.copy(
-                horizontalLineColor = Color.RED,
-                verticalLineColor = Color.BLUE,
+                horizontalLineColor = Defaults.gridHorizontalColor(),
+                verticalLineColor = Defaults.gridVerticalColor(),
                 horizontalGridSize = 8.0f.toPx(),
                 verticalGridSize = 8.0f.toPx()
             ),
@@ -249,6 +350,12 @@ internal class ThimbleService : Service() {
             ),
             magnifier = configuration.magnifier.copy(
                 colorModel = ColorModel.HEX
+            ),
+            recorder = configuration.recorder.copy(
+                recorderDelay = 0,
+                compression = 0.9f,
+                recordInternalAudio = false,
+                videoQuality = VideoQuality.HIGH
             )
         )
         if (gridOverlay.isShowing()) {
@@ -260,6 +367,57 @@ internal class ThimbleService : Service() {
         if (magnifierOverlay.isShowing()) {
             magnifierOverlay.reset(configuration.magnifier)
         }
+        if (recorderOverlay.isShowing()) {
+            recorderOverlay.reset(configuration.recorder)
+        }
+    }
+
+    private fun toggleGrid(enabled: Boolean) {
+        configuration = configuration.copy(
+            grid = configuration.grid.copy(enabled = enabled)
+        )
+
+        commander?.notifyRegister(
+            bundleOf(BundleKeys.CONFIGURATION.name to configuration)
+        )
+
+        updateNotification()
+    }
+
+    private fun toggleMockup(enabled: Boolean) {
+        configuration = configuration.copy(
+            mockup = configuration.mockup.copy(enabled = enabled)
+        )
+
+        commander?.notifyRegister(
+            bundleOf(BundleKeys.CONFIGURATION.name to configuration)
+        )
+
+        updateNotification()
+    }
+
+    private fun toggleMagnifier(enabled: Boolean) {
+        configuration = configuration.copy(
+            magnifier = configuration.magnifier.copy(enabled = enabled)
+        )
+
+        commander?.notifyRegister(
+            bundleOf(BundleKeys.CONFIGURATION.name to configuration)
+        )
+
+        updateNotification()
+    }
+
+    private fun toggleRecorder(enabled: Boolean) {
+        configuration = configuration.copy(
+            recorder = configuration.recorder.copy(enabled = enabled)
+        )
+
+        commander?.notifyRegister(
+            bundleOf(BundleKeys.CONFIGURATION.name to configuration)
+        )
+
+        updateNotification()
     }
 
     private fun register(client: Messenger) {
@@ -276,7 +434,8 @@ internal class ThimbleService : Service() {
             enabled = false,
             grid = configuration.grid.copy(enabled = false),
             mockup = configuration.mockup.copy(enabled = false),
-            magnifier = configuration.magnifier.copy(enabled = false)
+            magnifier = configuration.magnifier.copy(enabled = false),
+            recorder = configuration.recorder.copy(enabled = false)
         )
 
         commander?.notifyUnregister(
@@ -284,5 +443,14 @@ internal class ThimbleService : Service() {
         )
         commander?.bound = false
         commander = null
+    }
+
+    private fun updateNotification() {
+        notifications.update(
+            configuration.grid.enabled,
+            configuration.mockup.enabled,
+            configuration.magnifier.enabled,
+            configuration.recorder.enabled
+        )
     }
 }

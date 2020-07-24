@@ -16,5 +16,10 @@ internal object Presentation {
 
     fun launchIntent() = launchIntent
 
-    fun show() = context.startActivity(launchIntent)
+    fun show() {
+        if (::context.isInitialized.not()) {
+            throw NullPointerException("Context not initialized")
+        }
+        context.startActivity(launchIntent)
+    }
 }

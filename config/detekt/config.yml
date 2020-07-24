@@ -67,7 +67,7 @@ complexity:
     includePrivateDeclarations: false
   ComplexMethod:
     active: true
-    threshold: 25
+    threshold: 30
     ignoreSingleWhenExpression: false
     ignoreSimpleWhenEntries: false
     ignoreNestingFunctions: false
@@ -77,14 +77,14 @@ complexity:
     ignoredLabels: []
   LargeClass:
     active: true
-    threshold: 250
+    threshold: 400
   LongMethod:
     active: true
-    threshold: 135
+    threshold: 250
   LongParameterList:
     active: true
     functionThreshold: 6
-    constructorThreshold: 20
+    constructorThreshold: 30
     ignoreDefaultParameters: false
     ignoreDataClasses: true
     ignoreAnnotated: []
@@ -104,10 +104,10 @@ complexity:
   TooManyFunctions:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
-    thresholdInFiles: 25
-    thresholdInClasses: 25
-    thresholdInInterfaces: 25
-    thresholdInObjects: 25
+    thresholdInFiles: 32
+    thresholdInClasses: 32
+    thresholdInInterfaces: 32
+    thresholdInObjects: 32
     ignoreDeprecated: false
     ignorePrivate: false
     ignoreOverridden: false

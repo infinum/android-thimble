@@ -12,12 +12,17 @@ internal class ThimbleApplication : Application() {
 
     private var mediaProjectionData: Intent? = null
 
+    private var mediaProjectionAllowed: Boolean = false
+
     fun setMediaProjectionPermissionData(resultCode: Int, data: Intent?) {
         mediaProjectionResultCode = resultCode
         mediaProjectionData = data
+        mediaProjectionAllowed = resultCode == Activity.RESULT_OK && data != null
     }
 
     fun mediaProjectionResultCode(): Int = mediaProjectionResultCode
 
     fun mediaProjectionData(): Intent? = mediaProjectionData
+
+    fun mediaProjectionAllowed(): Boolean = mediaProjectionAllowed
 }

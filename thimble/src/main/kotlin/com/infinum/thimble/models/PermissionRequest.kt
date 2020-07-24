@@ -2,7 +2,8 @@ package com.infinum.thimble.models
 
 internal enum class PermissionRequest(val requestCode: Int) {
     OVERLAY(requestCode = 444),
-    MEDIA_PROJECTION(requestCode = 666);
+    MEDIA_PROJECTION_MAGNIFIER(requestCode = 555),
+    MEDIA_PROJECTION_RECORDER(requestCode = 666);
 
     companion object {
 

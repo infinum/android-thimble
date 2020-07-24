@@ -7,10 +7,13 @@
     tools:showIn="@layout/thimble_activity_thimble">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/thimble_card_margin"
-        app:cardCornerRadius="@dimen/thimble_card_corner_radius">
+        app:cardCornerRadius="@dimen/thimble_card_corner_radius_primary"
+        app:strokeColor="@color/thimble_color_card_stroke"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"

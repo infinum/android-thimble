@@ -8,4 +8,12 @@
     <integer name="thimble_mockup_opacity_default">20</integer>
 
     <integer name="thimble_magnifier_sample_size">13</integer>
+
+    <integer name="thimble_delay_from">0</integer>
+    <integer name="thimble_delay_to">60</integer>
+    <integer name="thimble_delay_default">0</integer>
+
+    <integer name="thimble_screenshot_compression_from">0</integer>
+    <integer name="thimble_screenshot_compression_to">100</integer>
+    <integer name="thimble_screenshot_compression_default">90</integer>
 </resources>

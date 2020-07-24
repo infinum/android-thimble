@@ -1,0 +1,9 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/thimble_color_primary"
+        android:pathData="M16,6L16,18L3,18L3,6L16,6M16.8889,4L2.2222,4C1.5472,4 1,4.597 1,5.3333L1,18.6667C1,19.403 1.5472,20 2.2222,20L16.8889,20C17.5639,20 18.1111,19.403 18.1111,18.6667L18.1111,14L23,19.3333L23,4.6667L18.1111,10L18.1111,5.3333C18.1111,4.597 17.5639,4 16.8889,4Z" />
+</vector>

@@ -3,6 +3,7 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".ui.ThimbleApplication"
@@ -25,6 +26,17 @@
             android:enabled="true"
             android:exported="false" />
 
+        <provider
+            android:name=".RecorderDocumentsProvider"
+            android:authorities="com.infinum.thimble.documents"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action
+                    android:name="android.content.action.DOCUMENTS_PROVIDER"/>
+            </intent-filter>
+        </provider>
     </application>
 
 </manifest>

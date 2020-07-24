@@ -8,6 +8,7 @@ import android.os.IBinder
 import android.os.Messenger
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
+import androidx.annotation.IntRange
 import androidx.annotation.Px
 import androidx.annotation.RestrictTo
 import androidx.core.content.ContextCompat
@@ -16,9 +17,10 @@ import androidx.fragment.app.FragmentActivity
 import com.infinum.thimble.commanders.service.ServiceCommander
 import com.infinum.thimble.commanders.ui.UiCommandHandler
 import com.infinum.thimble.commanders.ui.UiCommandListener
+import com.infinum.thimble.models.BundleKeys
 import com.infinum.thimble.models.ColorModel
 import com.infinum.thimble.models.ServiceAction
-import com.infinum.thimble.models.BundleKeys
+import com.infinum.thimble.models.VideoQuality
 import com.infinum.thimble.models.configuration.ThimbleConfiguration
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
@@ -38,7 +40,8 @@ internal abstract class ServiceActivity : FragmentActivity() {
                         UiCommandHandler(
                             UiCommandListener(
                                 onRegister = this@ServiceActivity::onRegister,
-                                onUnregister = this@ServiceActivity::onUnregister
+                                onUnregister = this@ServiceActivity::onUnregister,
+                                onSelfStop = this@ServiceActivity::onSelfStop
                             )
                         )
                     )
@@ -139,6 +142,40 @@ internal abstract class ServiceActivity : FragmentActivity() {
         )
     }
 
+    fun toggleRecorder(shouldShow: Boolean) {
+        commander?.toggleRecorder(shouldShow)
+    }
+
+    fun updateRecorderDelay(@IntRange(from = 0, to = 60) recorderDelay: Int) {
+        commander?.updateRecorderDelay(
+            bundleOf(
+                BundleKeys.RECORDER_DELAY.name to recorderDelay
+            )
+        )
+    }
+
+    fun updateScreenshotCompression(@FloatRange(from = 0.0, to = 1.0) compression: Float) {
+        commander?.updateScreenshotCompression(
+            bundleOf(BundleKeys.SCREENSHOT_COMPRESSION.name to compression)
+        )
+    }
+
+    fun updateRecorderAudio(enabled: Boolean) {
+        commander?.updateRecorderAudio(
+            bundleOf(
+                BundleKeys.RECORDER_AUDIO.name to enabled
+            )
+        )
+    }
+
+    fun updateVideoQuality(videoQuality: VideoQuality) {
+        commander?.updateVideoQuality(
+            bundleOf(
+                BundleKeys.VIDEO_QUALITY.name to videoQuality.bitrate
+            )
+        )
+    }
+
     private fun register() {
         commander?.register()
     }
@@ -163,6 +200,7 @@ internal abstract class ServiceActivity : FragmentActivity() {
                 serviceConnection,
                 0
             )
+            bound = true
         } else {
             commander?.register()
         }
@@ -192,5 +230,10 @@ internal abstract class ServiceActivity : FragmentActivity() {
         setupUi(bundle.getParcelable(BundleKeys.CONFIGURATION.name) ?: ThimbleConfiguration())
         unbindService()
         stopService()
+    }
+
+    private fun onSelfStop(bundle: Bundle) {
+        setupUi(bundle.getParcelable(BundleKeys.CONFIGURATION.name) ?: ThimbleConfiguration())
+        unbindService()
     }
 }

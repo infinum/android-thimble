@@ -32,6 +32,14 @@ internal class ServiceCommander(
         }
     }
 
+    fun toggleRecorder(shouldShow: Boolean) {
+        if (shouldShow) {
+            showRecorder()
+        } else {
+            hideRecorder()
+        }
+    }
+
     fun updateGridHorizontalColor(params: Bundle) =
         updateGrid(OverlayParameter.COLOR_HORIZONTAL, params)
 
@@ -55,4 +63,16 @@ internal class ServiceCommander(
 
     fun updateMagnifierColorModel(params: Bundle) =
         updateMagnifier(OverlayParameter.COLOR_MODEL, params)
+
+    fun updateRecorderDelay(params: Bundle) =
+        updateRecorder(OverlayParameter.RECORDER_DELAY, params)
+
+    fun updateScreenshotCompression(params: Bundle) =
+        updateRecorder(OverlayParameter.SCREENSHOT_COMPRESSION, params)
+
+    fun updateRecorderAudio(params: Bundle) =
+        updateRecorder(OverlayParameter.RECORDER_AUDIO, params)
+
+    fun updateVideoQuality(params: Bundle) =
+        updateRecorder(OverlayParameter.VIDEO_QUALITY, params)
 }

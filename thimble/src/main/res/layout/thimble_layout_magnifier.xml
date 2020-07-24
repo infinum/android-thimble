@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/thimble_magnifier_size"
     android:layout_height="@dimen/thimble_magnifier_size"
+    android:elevation="4dp"
     android:background="@drawable/thimble_background_magnifier">
 
     <TextView

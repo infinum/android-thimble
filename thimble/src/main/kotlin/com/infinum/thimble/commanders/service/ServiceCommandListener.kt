@@ -21,6 +21,12 @@ internal class ServiceCommandListener(
     private val onShowMagnifierOverlay: () -> Unit,
     private val onHideMagnifierOverlay: () -> Unit,
     private val onUpdateMagnifierOverlayColorModel: (Bundle) -> Unit,
+    private val onShowRecorderOverlay: () -> Unit,
+    private val onHideRecorderOverlay: () -> Unit,
+    private val onUpdateRecorderDelay: (Bundle) -> Unit,
+    private val onUpdateRecorderScreenshotCompression: (Bundle) -> Unit,
+    private val onUpdateRecorderAudio: (Bundle) -> Unit,
+    private val onUpdateRecorderVideoQuality: (Bundle) -> Unit,
     private val onUnregister: () -> Unit
 ) {
 
@@ -99,6 +105,33 @@ internal class ServiceCommandListener(
                             when (parameter) {
                                 OverlayParameter.COLOR_MODEL ->
                                     onUpdateMagnifierOverlayColorModel(message.obj as Bundle)
+                                else -> throw NotImplementedError()
+                            }
+                        }
+                    }
+                    else -> throw NotImplementedError()
+                }
+            }
+
+    fun onRecorderCommand(message: Message) =
+        Command(message.arg1)
+            ?.let { command ->
+                when (command) {
+                    Command.SHOW -> onShowRecorderOverlay()
+                    Command.HIDE -> onHideRecorderOverlay()
+                    Command.UPDATE -> {
+                        OverlayParameter(
+                            message.arg2
+                        )?.let { parameter ->
+                            when (parameter) {
+                                OverlayParameter.RECORDER_DELAY -> onUpdateRecorderDelay(message.obj as Bundle)
+                                OverlayParameter.SCREENSHOT_COMPRESSION -> onUpdateRecorderScreenshotCompression(
+                                    message.obj as Bundle
+                                )
+                                OverlayParameter.RECORDER_AUDIO -> onUpdateRecorderAudio(message.obj as Bundle)
+                                OverlayParameter.VIDEO_QUALITY -> onUpdateRecorderVideoQuality(
+                                    message.obj as Bundle
+                                )
                                 else -> throw NotImplementedError()
                             }
                         }

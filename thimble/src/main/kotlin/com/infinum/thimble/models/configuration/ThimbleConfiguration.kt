@@ -8,5 +8,6 @@ internal data class ThimbleConfiguration(
     override val enabled: Boolean = false,
     val grid: GridConfiguration = GridConfiguration(),
     val mockup: MockupConfiguration = MockupConfiguration(),
-    val magnifier: MagnifierConfiguration = MagnifierConfiguration()
+    val magnifier: MagnifierConfiguration = MagnifierConfiguration(),
+    val recorder: RecorderConfiguration = RecorderConfiguration()
 ) : AbstractConfiguration()

@@ -9,5 +9,10 @@ internal enum class BundleKeys {
     OPACITY,
     PORTRAIT_URI,
     LANDSCAPE_URI,
-    COLOR_MODEL
+    COLOR_MODEL,
+    TOGGLE,
+    RECORDER_DELAY,
+    SCREENSHOT_COMPRESSION,
+    RECORDER_AUDIO,
+    VIDEO_QUALITY
 }

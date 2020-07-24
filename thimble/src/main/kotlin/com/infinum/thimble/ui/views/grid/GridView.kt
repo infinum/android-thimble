@@ -2,7 +2,6 @@ package com.infinum.thimble.ui.views.grid
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import androidx.annotation.RestrictTo
 import com.infinum.thimble.extensions.toPx
+import com.infinum.thimble.ui.Defaults
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 internal class GridView @JvmOverloads constructor(
@@ -28,12 +28,12 @@ internal class GridView @JvmOverloads constructor(
     private var pointsVertical: FloatArray = FloatArray(0)
 
     private val paintHorizontal = Paint().apply {
-        color = Color.RED
+        color = Defaults.gridHorizontalColor()
         strokeWidth = 0.0f
         style = Paint.Style.STROKE
     }
     private val paintVertical = Paint().apply {
-        color = Color.BLUE
+        color = Defaults.gridVerticalColor()
         strokeWidth = 0.0f
         style = Paint.Style.STROKE
     }

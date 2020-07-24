@@ -8,17 +8,23 @@
     <string name="thimble_reset">Reset</string>
     <string name="thimble_stop">Stop</string>
     <string name="thimble_close">Close</string>
+    <string name="thimble_clear">Clear</string>
 
     <string name="thimble_overlay_title_grid">Grid overlay</string>
     <string name="thimble_overlay_title_mockup">Mockup overlay</string>
     <string name="thimble_overlay_title_magnifier">Magnifier</string>
+    <string name="thimble_overlay_title_recorder">Recorder</string>
 
     <string name="thimble_overlay_description_grid">Overlay a grid to help you check layouts for alignement and spacing.</string>
     <string name="thimble_overlay_description_mockup">Overlay a mockup image for a live preview of the screen layout.</string>
     <string name="thimble_overlay_description_magnifier">Inspect on screen colors at the pixel level by dragging the loupe around.</string>
+    <string name="thimble_overlay_description_recorder">Record a video of your screen or take a screenshot.</string>
 
     <string name="thimble_overlay_section_title_colors">Colors</string>
     <string name="thimble_overlay_section_title_gap">Gap</string>
+    <string name="thimble_overlay_section_title_options">Options</string>
+    <string name="thimble_overlay_section_title_screenshot">Screenshot</string>
+    <string name="thimble_overlay_section_title_video">Video</string>
 
     <string name="thimble_overlay_option_title_horizontal">Horizontal</string>
     <string name="thimble_overlay_option_title_vertical">Vertical</string>
@@ -26,15 +32,28 @@
     <string name="thimble_overlay_option_title_portrait">Portrait</string>
     <string name="thimble_overlay_option_title_landscape">Landscape</string>
     <string name="thimble_overlay_option_title_color_model">Color model</string>
+    <string name="thimble_overlay_option_title_audio">Audio</string>
+    <string name="thimble_overlay_option_title_compression">Compression</string>
+    <string name="thimble_overlay_option_title_video_quality">Quality</string>
+    <string name="thimble_overlay_option_title_record_delay">Delay</string>
+    <string name="thimble_overlay_option_title_browse">Browse</string>
 
     <string name="thimble_option_template_dp" translatable="false">%sdp</string>
+    <string name="thimble_option_template_s" translatable="false">%ss</string>
 
     <string name="thimble_option_color_model_hex" translatable="false">HEX</string>
     <string name="thimble_option_color_model_rgb" translatable="false">RGB</string>
     <string name="thimble_option_color_model_hsv" translatable="false">HSV</string>
+    <string name="thimble_option_video_audio">Record internal audio</string>
+    <string name="thimble_option_video_quality_low">Low</string>
+    <string name="thimble_option_video_quality_medium">Medium</string>
+    <string name="thimble_option_video_quality_high">High</string>
 
     <string name="thimble_color_picker_template_title">Select %s line color</string>
     <string name="thimble_image_picker_template_title">Select %s image</string>
+    <string name="thimble_file_picker_template_title">Select %s</string>
+    <string name="thimble_share_picker_template_title">Share %1$s %2$s</string>
+    <string name="thimble_recorder_clear_template_message">Delete all %s?</string>
 
     <string name="thimble_message_mockup_cleared">Mockup image cleared.</string>
     <string name="thimble_message_mockup_error">Cannot set mockup image.</string>

@@ -153,7 +153,7 @@ internal class MagnifierOverlay(
                     )
             }
         virtualDisplay = mediaProjection?.createVirtualDisplay(
-            ThimbleService::class.java.simpleName,
+            "${ThimbleService::class.java.simpleName}_${MagnifierOverlay::class.java.simpleName}",
             size.x,
             size.y,
             context.resources.displayMetrics.densityDpi,

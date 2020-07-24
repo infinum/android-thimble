@@ -15,6 +15,7 @@ import com.infinum.thimble.ui.fragments.MagnifierOverlayFragment
 import com.infinum.thimble.ui.fragments.MockupOverlayFragment
 import com.infinum.thimble.models.PermissionRequest
 import com.infinum.thimble.models.configuration.ThimbleConfiguration
+import com.infinum.thimble.ui.fragments.RecorderOverlayFragment
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 internal class ThimbleActivity : ServiceActivity() {
@@ -29,7 +30,7 @@ internal class ThimbleActivity : ServiceActivity() {
             .also {
                 setupToolbar()
                 setupUi(ThimbleConfiguration())
-                setupPermission()
+                checkPermission()
             }
     }
 
@@ -40,15 +41,9 @@ internal class ThimbleActivity : ServiceActivity() {
             ?.let { permission ->
                 when (permission) {
                     PermissionRequest.OVERLAY -> {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (Settings.canDrawOverlays(this).not()) {
-                                // TODO: Make this a Dialog with explanation and rationale
-                                Snackbar.make(binding.root, "Overlay permission denied", Snackbar.LENGTH_SHORT).show()
-                            } else {
-                                Unit
-                            }
-                        } else {
-                            Unit
+                        when (shouldCheckPermission()) {
+                            true -> permissionDenied()
+                            false -> Unit
                         }
                     }
                     else -> throw NotImplementedError()
@@ -80,28 +75,47 @@ internal class ThimbleActivity : ServiceActivity() {
                 it.toggleUi(configuration.enabled)
                 it.configure(configuration.magnifier)
             }
+            (findFragmentById(R.id.recorderOverlayFragment) as? RecorderOverlayFragment)?.let {
+                it.toggleUi(configuration.enabled)
+                it.configure(configuration.recorder)
+            }
         }
     }
 
     private fun setupToolbar() {
-        binding.toolbar.setNavigationOnClickListener { finish() }
+        with(binding) {
+            toolbar.setNavigationOnClickListener { finish() }
+        }
     }
 
-    private fun setupPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (Settings.canDrawOverlays(this).not()) {
-                startActivityForResult(
-                    Intent(
-                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                        Uri.parse("package:$packageName")
-                    ),
-                    PermissionRequest.OVERLAY.requestCode
-                )
-            } else {
-                Unit
-            }
-        } else {
-            Unit
+    private fun checkPermission() =
+        when (shouldCheckPermission()) {
+            true -> requestPermission()
+            false -> Unit
         }
+
+    private fun requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            startActivityForResult(
+                Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName")
+                ),
+                PermissionRequest.OVERLAY.requestCode
+            )
+        }
+    }
+
+    private fun shouldCheckPermission() =
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                Settings.canDrawOverlays(this).not()
+
+    private fun permissionDenied() {
+        // TODO: Make this a Dialog with explanation and rationale
+        Snackbar.make(
+            binding.root,
+            "Overlay permission denied",
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 }

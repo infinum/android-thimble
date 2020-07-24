@@ -36,4 +36,16 @@ internal class UiCommander(
             )
         )
     }
+
+    fun notifySelfStop(params: Bundle) {
+        sendMessage(
+            Message.obtain(
+                null,
+                Target.CLIENT.code,
+                Command.UPDATE.code,
+                0,
+                params
+            )
+        )
+    }
 }

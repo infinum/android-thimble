@@ -12,5 +12,5 @@ internal fun Float.toHalf(): Float =
 internal fun Float.fromPercentage(): Float =
     this / 100.0f
 
-internal fun Float.toPercentage(): String =
-    "${(this * 100).roundToInt()}%"
+internal fun Float.toPercentage(multiplier: Int = 100): String =
+    "${(this * multiplier).roundToInt()}%"

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:weightSum="4"
+    tools:ignore="RtlSymmetry,NestedWeights"
+    tools:viewBindingIgnore="true">
+
+    <ImageButton
+        android:id="@+id/gridSwitch"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingEnd="8dp"
+        android:src="@drawable/thimble_ic_grid" />
+
+    <ImageButton
+        android:id="@+id/mockupSwitch"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:src="@drawable/thimble_ic_mockup" />
+
+    <ImageButton
+        android:id="@+id/magnifierSwitch"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:src="@drawable/thimble_ic_magnifier" />
+
+    <ImageButton
+        android:id="@+id/recorderSwitch"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:src="@drawable/thimble_ic_recorder" />
+
+</LinearLayout>

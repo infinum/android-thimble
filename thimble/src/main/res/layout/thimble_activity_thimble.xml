@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$Behavior"
@@ -56,6 +57,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout="@layout/thimble_fragment_overlay_magnifier" />
+
+            <fragment
+                android:id="@+id/recorderOverlayFragment"
+                android:name="com.infinum.thimble.ui.fragments.RecorderOverlayFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/thimble_fragment_overlay_recorder" />
 
         </LinearLayout>
 
