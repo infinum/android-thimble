@@ -1,0 +1,55 @@
+ext.thimble = [
+        "group"      : "com.infinum.thimble",
+        "version"    : "1.0.0",
+        "versionCode": 1 * 100 * 100 + 0 * 100 + 0
+]
+
+ext.versions = [
+        "gradle"           : '4.0.1',
+        "kotlin"           : "1.3.72",
+        "bintray"          : "1.8.5",
+        "core"             : "1.3.1",
+        "appcompat"        : "1.1.0",
+        "fragment"         : "1.2.5",
+        "lifecycle"        : "2.2.0",
+        "constraintlayout" : "2.0.0-beta8",
+        "coordinatorlayout": "1.1.0",
+        "design"           : "1.2.0-rc01",
+        "colorpicker"      : "2.0.0",
+        "maven"            : "2.0",
+        "detekt"           : "1.10.0",
+        "dokka"            : "0.10.1"
+]
+
+ext.packages = [
+        "gradle"     : "com.android.tools.build:gradle:${versions.gradle}",
+        "kotlin"     : [
+                "plugin": "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}",
+                "core"  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}",
+        ],
+        "bintray"    : "com.jfrog.bintray.gradle:gradle-bintray-plugin:${versions.bintray}",
+        "androidx"   : [
+                "core"             : "androidx.core:core-ktx:${versions.core}",
+                "appcompat"        : "androidx.appcompat:appcompat:${versions.appcompat}",
+                "fragment"         : "androidx.fragment:fragment-ktx:${versions.fragment}",
+                "lifecycle"        : [
+                        "common": "androidx.lifecycle:lifecycle-common-java8:${versions.lifecycle}"
+                ],
+                "constraintlayout" : "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}",
+                "coordinatorlayout": "androidx.coordinatorlayout:coordinatorlayout:${versions.coordinatorlayout}"
+        ],
+        "google"     : [
+                "design": "com.google.android.material:material:${versions.design}"
+        ],
+        "colorpicker": "com.github.skydoves:colorpickerpreference:${versions.colorpicker}",
+        "maven"      : [
+                "plugin": "com.github.dcendents:android-maven-gradle-plugin:${versions.maven}"
+        ],
+        "detekt"     : [
+                "plugin"    : "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}",
+                "formatting": "io.gitlab.arturbosch.detekt:detekt-formatting:${versions.detekt}"
+        ],
+        "dokka"      : [
+                "plugin": "org.jetbrains.dokka:dokka-gradle-plugin:${versions.dokka}"
+        ]
+]

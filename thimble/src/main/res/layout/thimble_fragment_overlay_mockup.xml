@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:showIn="@layout/thimble_activity_thimble">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/thimble_card_margin"
+        app:cardCornerRadius="@dimen/thimble_card_corner_radius">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/mockupOverlaySwitch"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/listPreferredItemHeightSmall"
+                android:layout_marginStart="@dimen/thimble_section_title_margin"
+                android:layout_marginEnd="@dimen/thimble_section_title_margin"
+                android:enabled="false"
+                android:text="@string/thimble_overlay_title_mockup"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_description_margin"
+                android:layout_marginTop="@dimen/thimble_description_margin"
+                android:layout_marginEnd="@dimen/thimble_description_margin"
+                android:text="@string/thimble_overlay_description_mockup"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_section_title_margin"
+                android:layout_marginTop="@dimen/thimble_section_title_margin_top"
+                android:layout_marginEnd="@dimen/thimble_section_title_margin"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/thimble_section_option_margin_end"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/thimble_overlay_option_title_opacity"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mockupOpacityValueLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thimble_section_option_margin_start"
+                    android:gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/decreaseMockupOpacityButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="@dimen/thimble_gap_button_size"
+                    android:layout_height="@dimen/thimble_gap_button_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/thimble_gap_button_margin"
+                    android:layout_marginEnd="@dimen/thimble_gap_button_margin"
+                    android:enabled="false"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="@dimen/thimble_gap_button_corner_radius"
+                    app:icon="@drawable/thimble_ic_minus"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/mockupOpacitySlider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:stepSize="1"
+                    android:value="@integer/thimble_mockup_opacity_default"
+                    android:valueFrom="@integer/thimble_mockup_opacity_from"
+                    android:valueTo="@integer/thimble_mockup_opacity_to"
+                    app:haloRadius="@dimen/thimble_slider_halo_radius"
+                    app:thumbRadius="@dimen/thimble_slider_thumb_radius" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/increaseMockupOpacityButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="@dimen/thimble_gap_button_size"
+                    android:layout_height="@dimen/thimble_gap_button_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/thimble_gap_button_margin"
+                    android:layout_marginEnd="@dimen/thimble_gap_button_margin"
+                    android:enabled="false"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="@dimen/thimble_gap_button_corner_radius"
+                    app:icon="@drawable/thimble_ic_plus"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:strokeWidth="0dp" />
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/thimble_section_title_margin"
+                android:layout_marginTop="@dimen/thimble_section_title_margin_top"
+                android:layout_marginEnd="@dimen/thimble_section_title_margin"
+                android:layout_marginBottom="@dimen/thimble_section_title_margin">
+
+                <FrameLayout
+                    android:id="@+id/portraitMockupLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/thimble_mockup_size"
+                    android:background="?attr/colorButtonNormal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/landscapeMockupLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/portraitLabel">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/thimble_ic_add" />
+
+                    <ImageView
+                        android:id="@+id/portraitMockup"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:enabled="false"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:scaleType="fitCenter"
+                        tools:ignore="UnusedAttribute" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/landscapeMockupLayout"
+                    android:layout_width="@dimen/thimble_mockup_size"
+                    android:layout_height="0dp"
+                    android:background="?attr/colorButtonNormal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/portraitMockupLayout"
+                    app:layout_constraintTop_toBottomOf="@id/landscapeLabel">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/thimble_ic_add" />
+
+                    <ImageView
+                        android:id="@+id/landscapeMockup"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:enabled="false"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:scaleType="fitCenter"
+                        tools:ignore="UnusedAttribute" />
+
+                </FrameLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/portraitLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/thimble_overlay_option_title_portrait"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    app:layout_constraintBottom_toTopOf="@id/portraitMockupLayout"
+                    app:layout_constraintEnd_toEndOf="@id/portraitMockupLayout"
+                    app:layout_constraintStart_toStartOf="@id/portraitMockupLayout"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/landscapeLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/thimble_overlay_option_title_landscape"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    app:layout_constraintBottom_toTopOf="@id/landscapeMockupLayout"
+                    app:layout_constraintEnd_toEndOf="@id/landscapeMockupLayout"
+                    app:layout_constraintStart_toStartOf="@id/landscapeMockupLayout"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/clearPortraitMockupButton"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="@dimen/thimble_clear_mockup_button_size"
+                    android:layout_height="@dimen/thimble_clear_mockup_button_size"
+                    android:layout_marginBottom="@dimen/thimble_clear_button_margin"
+                    android:enabled="false"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/thimble_color_clear_button"
+                    app:cornerRadius="@dimen/thimble_clear_mockup_button_corner_radius"
+                    app:icon="@drawable/thimble_ic_remove"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/portraitMockupLayout"
+                    app:layout_constraintEnd_toEndOf="@id/portraitMockupLayout"
+                    app:layout_constraintStart_toStartOf="@id/portraitMockupLayout" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/clearLandscapeMockupButton"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="@dimen/thimble_clear_mockup_button_size"
+                    android:layout_height="@dimen/thimble_clear_mockup_button_size"
+                    android:layout_marginEnd="@dimen/thimble_clear_button_margin"
+                    android:enabled="false"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/thimble_color_clear_button"
+                    app:cornerRadius="@dimen/thimble_clear_mockup_button_corner_radius"
+                    app:icon="@drawable/thimble_ic_remove"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/landscapeMockupLayout"
+                    app:layout_constraintEnd_toEndOf="@id/landscapeMockupLayout"
+                    app:layout_constraintTop_toTopOf="@id/landscapeMockupLayout" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="thimble_color_primary">#5968A7</color>
+    <color name="thimble_color_accent">#5968A7</color>
+    <color name="thimble_color_clear_button">#D8262C</color>
+    <color name="thimble_magnifier_content">#636363</color>
+    <color name="thimble_magnifier_value">#FAFAFA</color>
+</resources>

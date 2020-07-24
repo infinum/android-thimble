@@ -1,0 +1,3 @@
+include ':thimble'
+include ':sample'
+rootProject.name = "Thimble"

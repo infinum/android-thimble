@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Thimble.BaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/thimble_color_primary</item>
+        <item name="colorAccent">@color/thimble_color_accent</item>
+    </style>
+
+</resources>

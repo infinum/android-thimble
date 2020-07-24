@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.infinum.thimble.ui.views.magnifier.MagnifierView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/thimble_magnifier_size"
+    android:layout_height="@dimen/thimble_magnifier_size"
+    android:background="@drawable/thimble_background_magnifier">
+
+    <TextView
+        android:id="@+id/colorValueView"
+        android:layout_width="wrap_content"
+        android:minHeight="@dimen/thimble_magnifier_value_min_height"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/thimble_magnifier_value_margin_top"
+        android:background="@drawable/thimble_background_color_value"
+        android:clickable="true"
+        android:gravity="center"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:paddingStart="@dimen/thimble_magnifier_content_inset"
+        android:paddingEnd="@dimen/thimble_magnifier_content_inset"
+        android:textColor="@color/thimble_magnifier_value"
+        android:textSize="12sp"
+        android:visibility="gone"
+        tools:text="#fafafa" />
+
+    <ImageView
+        android:id="@+id/instructionsView"
+        android:layout_width="@dimen/thimble_magnifier_arrow_size"
+        android:layout_height="@dimen/thimble_magnifier_arrow_size"
+        android:layout_gravity="center"
+        android:src="@drawable/thimble_ic_drag" />
+
+</com.infinum.thimble.ui.views.magnifier.MagnifierView>

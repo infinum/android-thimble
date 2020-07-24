@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#424242" />
+            <stroke
+                android:width="1dp"
+                android:color="#fafafa" />
+        </shape>
+    </item>
+    <item
+        android:bottom="@dimen/thimble_magnifier_content_inset"
+        android:left="@dimen/thimble_magnifier_content_inset"
+        android:right="@dimen/thimble_magnifier_content_inset"
+        android:top="@dimen/thimble_magnifier_content_inset">
+        <shape android:shape="oval">
+            <solid android:color="@color/thimble_magnifier_content" />
+            <stroke
+                android:width="1dp"
+                android:color="#fafafa" />
+        </shape>
+    </item>
+</layer-list>

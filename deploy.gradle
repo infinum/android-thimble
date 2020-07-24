@@ -1,0 +1,8 @@
+task deployThimble(dependsOn: [
+        ':thimble:build',
+        ':thimble:install',
+        ':thimble:bintrayUpload'
+]) {
+    group = "Deploy"
+    description = "Deploy module to Bintray"
+}

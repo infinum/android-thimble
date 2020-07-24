@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="thimble_grid_gap_from">1</integer>
+    <integer name="thimble_grid_gap_default">8</integer>
+
+    <integer name="thimble_mockup_opacity_from">0</integer>
+    <integer name="thimble_mockup_opacity_to">100</integer>
+    <integer name="thimble_mockup_opacity_default">20</integer>
+
+    <integer name="thimble_magnifier_sample_size">13</integer>
+</resources>

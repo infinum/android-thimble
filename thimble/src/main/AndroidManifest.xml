@@ -1,0 +1,30 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.infinum.thimble">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application
+        android:name=".ui.ThimbleApplication"
+        android:theme="@style/Thimble.BaseTheme">
+
+        <activity
+            android:name="com.infinum.thimble.ui.ThimbleActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Thimble.BaseTheme" />
+
+        <service
+            android:name="com.infinum.thimble.ui.ThimbleService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+
+        <provider
+            android:name=".ThimbleContentProvider"
+            android:authorities="${applicationId}.ThimbleContentProvider"
+            android:enabled="true"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

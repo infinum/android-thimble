@@ -1,0 +1,62 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    buildFeatures {
+        buildConfig = false
+        viewBinding = true
+    }
+
+    compileSdkVersion buildConfig.compileSdk
+    buildToolsVersion buildConfig.buildTools
+
+    defaultConfig {
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
+        versionCode thimble.versionCode
+        versionName thimble.version
+
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    resourcePrefix 'thimble_'
+
+    androidExtensions {
+        features = ["parcelize"]
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dependencies {
+    implementation packages.kotlin.core
+    implementation packages.androidx.core
+    implementation packages.androidx.fragment
+    implementation packages.androidx.constraintlayout
+    implementation packages.androidx.coordinatorlayout
+    implementation packages.androidx.lifecycle.common
+    implementation packages.google.design
+    implementation packages.colorpicker
+}
+
+apply from: "bintray.gradle"

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="thimble_magnifier_content_inset">8dp</dimen>
+
+    <dimen name="thimble_gap_button_size">40dp</dimen>
+    <dimen name="thimble_mockup_size">160dp</dimen>
+    <dimen name="thimble_clear_mockup_button_size">32dp</dimen>
+    <dimen name="thimble_magnifier_content_size">158dp</dimen>
+    <dimen name="thimble_magnifier_size">174dp</dimen>
+    <dimen name="thimble_magnifier_arrow_size">48dp</dimen>
+
+    <dimen name="thimble_magnifier_value_min_height">24dp</dimen>
+    <dimen name="thimble_magnifier_value_margin_top">32dp</dimen>
+
+    <dimen name="thimble_toolbar_padding_end">12dp</dimen>
+    <dimen name="thimble_gap_button_margin">6dp</dimen>
+    <dimen name="thimble_clear_button_margin">2dp</dimen>
+
+    <dimen name="thimble_card_margin">16dp</dimen>
+    <dimen name="thimble_card_last_item_margin_bottom">8dp</dimen>
+
+    <dimen name="thimble_title_margin">16dp</dimen>
+    <dimen name="thimble_description_margin">16dp</dimen>
+    <dimen name="thimble_section_title_margin">16dp</dimen>
+    <dimen name="thimble_section_title_margin_top">24dp</dimen>
+    <dimen name="thimble_section_option_margin">16dp</dimen>
+    <dimen name="thimble_section_option_margin_top">4dp</dimen>
+    <dimen name="thimble_section_option_margin_start">8dp</dimen>
+    <dimen name="thimble_section_option_margin_end">8dp</dimen>
+
+    <dimen name="thimble_card_corner_radius">16dp</dimen>
+    <dimen name="thimble_button_corner_radius">16dp</dimen>
+    <dimen name="thimble_gap_button_corner_radius">20dp</dimen>
+    <dimen name="thimble_clear_mockup_button_corner_radius">16dp</dimen>
+    <dimen name="thimble_slider_halo_radius">20dp</dimen>
+    <dimen name="thimble_slider_thumb_radius">10dp</dimen>
+
+</resources>
