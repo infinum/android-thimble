@@ -54,7 +54,8 @@ task clean(type: Delete) {
 }
 
 task detektAll(dependsOn: [
-        ':thimble:detekt'
+        ':thimble:detekt',
+        ':thimble-app:detekt'
 ]) {
     group = "Verification"
     description = "Run detekt on all modules"

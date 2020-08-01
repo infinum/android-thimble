@@ -28,7 +28,7 @@
 
         <provider
             android:name=".RecorderDocumentsProvider"
-            android:authorities="com.infinum.thimble.documents"
+            android:authorities="${applicationId}.documents"
             android:exported="true"
             android:grantUriPermissions="true"
             android:permission="android.permission.MANAGE_DOCUMENTS">

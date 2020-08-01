@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/thimble_color_primary</item>
         <item name="colorAccent">@color/thimble_color_accent</item>
         <item name="android:statusBarColor">?colorSurface</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
     </style>
 
 </resources>

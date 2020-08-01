@@ -2,5 +2,5 @@
 <resources>
     <color name="thimble_color_background">#424242</color>
     <color name="thimble_color_counter">#424242</color>
-    <color name="thimble_color_provider_icon">#a7a7a7</color>
+    <color name="thimble_color_provider_icon">#a5a5a5</color>
 </resources>

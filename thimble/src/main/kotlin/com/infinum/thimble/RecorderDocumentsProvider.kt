@@ -81,6 +81,12 @@ internal class RecorderDocumentsProvider : DocumentsProvider() {
                             DocumentsContract.Root.COLUMN_TITLE,
                             context?.getString(R.string.thimble_name)
                         )
+                        context?.let {
+                            add(
+                                DocumentsContract.Root.COLUMN_SUMMARY,
+                                it.applicationInfo?.loadLabel(it.packageManager).toString()
+                            )
+                        }
                         add(DocumentsContract.Root.COLUMN_DOCUMENT_ID, documentIdForFile(baseDir))
                         add(DocumentsContract.Root.COLUMN_MIME_TYPES, supportedMimeTypes())
                         add(DocumentsContract.Root.COLUMN_ICON, R.drawable.thimble_ic_logo_provider)
@@ -193,7 +199,10 @@ internal class RecorderDocumentsProvider : DocumentsProvider() {
                 ThumbnailUtils.createVideoThumbnail(file, size, null)
             } else {
                 @Suppress("DEPRECATION")
-                ThumbnailUtils.createVideoThumbnail(file.absolutePath, MediaStore.Video.Thumbnails.MINI_KIND)
+                ThumbnailUtils.createVideoThumbnail(
+                    file.absolutePath,
+                    MediaStore.Video.Thumbnails.MINI_KIND
+                )
             }
         } else {
             throw NotImplementedError()

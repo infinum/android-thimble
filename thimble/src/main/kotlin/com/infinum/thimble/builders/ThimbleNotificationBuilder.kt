@@ -59,78 +59,78 @@ internal class ThimbleNotificationBuilder(
         mockupEnabled: Boolean,
         magnifierEnabled: Boolean,
         recorderEnabled: Boolean
-    ): NotificationCompat.Builder {
-        val notificationLayout =
-            RemoteViews(service.packageName, R.layout.thimble_layout_notification_small)
-        val notificationLayoutExpanded =
-            RemoteViews(service.packageName, R.layout.thimble_layout_notification_large)
-
-        notificationLayout.setOnClickPendingIntent(
-            R.id.gridSwitch,
-            intentBuilder.toggleGrid(gridEnabled.not())
-        )
-        notificationLayout.setOnClickPendingIntent(
-            R.id.mockupSwitch,
-            intentBuilder.toggleMockup(mockupEnabled.not())
-        )
-        notificationLayout.setOnClickPendingIntent(
-            R.id.magnifierSwitch,
-            intentBuilder.toggleMagnifier(magnifierEnabled.not())
-        )
-        notificationLayout.setOnClickPendingIntent(
-            R.id.recorderSwitch,
-            intentBuilder.toggleRecorder(recorderEnabled.not())
-        )
-
-        notificationLayoutExpanded.setOnClickPendingIntent(
-            R.id.gridSwitch,
-            intentBuilder.toggleGrid(gridEnabled.not())
-        )
-        notificationLayoutExpanded.setOnClickPendingIntent(
-            R.id.mockupSwitch,
-            intentBuilder.toggleMockup(mockupEnabled.not())
-        )
-        notificationLayoutExpanded.setOnClickPendingIntent(
-            R.id.magnifierSwitch,
-            intentBuilder.toggleMagnifier(magnifierEnabled.not())
-        )
-        notificationLayoutExpanded.setOnClickPendingIntent(
-            R.id.recorderSwitch,
-            intentBuilder.toggleRecorder(recorderEnabled.not())
-        )
-
-        return NotificationCompat.Builder(service, channelId())
+    ): NotificationCompat.Builder =
+        NotificationCompat.Builder(service, channelId())
             .setSmallIcon(R.drawable.thimble_ic_logo)
             .setOngoing(false)
             .setAutoCancel(true)
             .setColor(ContextCompat.getColor(service, R.color.thimble_color_primary))
             .setColorized(false)
+            .setCustomContentView(
+                RemoteViews(service.packageName, R.layout.thimble_layout_notification_small)
+                    .apply {
+                        setOnClickPendingIntent(
+                            R.id.gridSwitch,
+                            intentBuilder.toggleGrid(gridEnabled.not())
+                        )
+                        setOnClickPendingIntent(
+                            R.id.mockupSwitch,
+                            intentBuilder.toggleMockup(mockupEnabled.not())
+                        )
+                        setOnClickPendingIntent(
+                            R.id.magnifierSwitch,
+                            intentBuilder.toggleMagnifier(magnifierEnabled.not())
+                        )
+                        setOnClickPendingIntent(
+                            R.id.recorderSwitch,
+                            intentBuilder.toggleRecorder(recorderEnabled.not())
+                        )
+                    }
+            )
+            .setCustomBigContentView(
+                RemoteViews(service.packageName, R.layout.thimble_layout_notification_large)
+                    .apply {
+                        setOnClickPendingIntent(
+                            R.id.gridSwitch,
+                            intentBuilder.toggleGrid(gridEnabled.not())
+                        )
+                        setOnClickPendingIntent(
+                            R.id.mockupSwitch,
+                            intentBuilder.toggleMockup(mockupEnabled.not())
+                        )
+                        setOnClickPendingIntent(
+                            R.id.magnifierSwitch,
+                            intentBuilder.toggleMagnifier(magnifierEnabled.not())
+                        )
+                        setOnClickPendingIntent(
+                            R.id.recorderSwitch,
+                            intentBuilder.toggleRecorder(recorderEnabled.not())
+                        )
+                    }
+            )
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
-            .setCustomContentView(notificationLayout)
-            .setCustomBigContentView(notificationLayoutExpanded)
             .setDeleteIntent(intentBuilder.stop())
             .addAction(
                 NotificationCompat.Action(
-                    0,
+                    R.drawable.thimble_ic_settings,
                     service.getString(R.string.thimble_settings),
                     intentBuilder.settings()
                 )
             )
             .addAction(
                 NotificationCompat.Action(
-                    0,
+                    R.drawable.thimble_ic_reset,
                     service.getString(R.string.thimble_reset),
                     intentBuilder.reset()
                 )
             )
             .addAction(
                 NotificationCompat.Action(
-                    0,
+                    R.drawable.thimble_ic_quit,
                     service.getString(R.string.thimble_stop),
                     intentBuilder.stop()
                 )
             )
-    }
 
     private fun channelId(): String =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
