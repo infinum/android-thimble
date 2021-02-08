@@ -11,6 +11,7 @@ import com.infinum.thimble.ui.Defaults
 import com.infinum.thimble.ui.Presentation
 import com.infinum.thimble.ui.utils.FileUtils
 
+@Deprecated(message = "Use AndroidX Startup")
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 internal class ThimbleContentProvider : ContentProvider() {
 
@@ -23,7 +24,7 @@ internal class ThimbleContentProvider : ContentProvider() {
             if ("$DEFAULT_PACKAGE.${ThimbleContentProvider::class.java.simpleName}" == it.authority) {
                 throw IllegalStateException(
                     "Incorrect provider authority. " +
-                            "Most likely due to missing applicationId variable in module build.gradle."
+                        "Most likely due to missing applicationId variable in module build.gradle."
                 )
             }
         } ?: throw IllegalStateException("This component cannot work with null ProviderInfo.")

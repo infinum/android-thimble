@@ -2,7 +2,7 @@ package com.infinum.thimble.models.configuration
 
 import androidx.annotation.FloatRange
 import com.infinum.thimble.models.configuration.shared.AbstractConfiguration
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 internal data class MockupConfiguration(

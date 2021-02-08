@@ -74,8 +74,8 @@ internal class RecorderDocumentsProvider : DocumentsProvider() {
                         add(
                             DocumentsContract.Root.COLUMN_FLAGS,
                             DocumentsContract.Root.FLAG_SUPPORTS_CREATE or
-                                    DocumentsContract.Root.FLAG_SUPPORTS_RECENTS or
-                                    DocumentsContract.Root.FLAG_SUPPORTS_SEARCH
+                                DocumentsContract.Root.FLAG_SUPPORTS_RECENTS or
+                                DocumentsContract.Root.FLAG_SUPPORTS_SEARCH
                         )
                         add(
                             DocumentsContract.Root.COLUMN_TITLE,
@@ -208,8 +208,10 @@ internal class RecorderDocumentsProvider : DocumentsProvider() {
             throw NotImplementedError()
         }
 
-        FileOutputStream(tempFile).use {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, JPEG_QUALITY, it)
+        bitmap?.let {
+            FileOutputStream(tempFile).use { stream ->
+                it.compress(Bitmap.CompressFormat.JPEG, JPEG_QUALITY, stream)
+            }
         }
 
         return tempFile
@@ -312,7 +314,7 @@ internal class RecorderDocumentsProvider : DocumentsProvider() {
         }
 
         var flags = DocumentsContract.Document.FLAG_DIR_PREFERS_GRID or
-                DocumentsContract.Document.FLAG_DIR_PREFERS_LAST_MODIFIED
+            DocumentsContract.Document.FLAG_DIR_PREFERS_LAST_MODIFIED
         desiredFile?.let {
             val mimeType = typeForFile(it)
             if (mimeType.startsWith("image/") || mimeType.startsWith("video/")) {

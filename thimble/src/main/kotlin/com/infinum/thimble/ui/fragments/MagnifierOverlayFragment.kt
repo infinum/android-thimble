@@ -1,19 +1,19 @@
 package com.infinum.thimble.ui.fragments
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.media.projection.MediaProjectionManager
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RestrictTo
 import com.infinum.thimble.R
 import com.infinum.thimble.databinding.ThimbleFragmentOverlayMagnifierBinding
 import com.infinum.thimble.models.ColorModel
-import com.infinum.thimble.models.PermissionRequest
 import com.infinum.thimble.models.configuration.MagnifierConfiguration
 import com.infinum.thimble.ui.Defaults
 import com.infinum.thimble.ui.ThimbleApplication
+import com.infinum.thimble.ui.contracts.MagnifierPermissionContract
 import com.infinum.thimble.ui.fragments.shared.AbstractOverlayFragment
 import com.infinum.thimble.ui.shared.viewBinding
 
@@ -21,50 +21,38 @@ import com.infinum.thimble.ui.shared.viewBinding
 internal class MagnifierOverlayFragment :
     AbstractOverlayFragment<MagnifierConfiguration>(R.layout.thimble_fragment_overlay_magnifier) {
 
+    private lateinit var contract: ActivityResultLauncher<Intent>
+
     override val binding: ThimbleFragmentOverlayMagnifierBinding by viewBinding(
         ThimbleFragmentOverlayMagnifierBinding::bind
     )
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        PermissionRequest(requestCode)
-            ?.let { permission ->
-                when (permission) {
-                    PermissionRequest.MEDIA_PROJECTION_MAGNIFIER,
-                    PermissionRequest.MEDIA_PROJECTION_RECORDER -> {
-                        when (resultCode) {
-                            Activity.RESULT_OK -> {
-                                (context?.applicationContext as? ThimbleApplication)
-                                    ?.setMediaProjectionPermissionData(resultCode, data)
-
-                                if (PermissionRequest(permission.requestCode) ==
-                                    PermissionRequest.MEDIA_PROJECTION_MAGNIFIER
-                                ) {
-                                    serviceActivity?.toggleMagnifier(true)
-                                }
-                            }
-                            Activity.RESULT_CANCELED -> {
-                                with(binding) {
-                                    if (magnifierSwitch.isChecked) {
-                                        magnifierSwitch.isChecked = false
-                                    }
-                                }
-                            }
-                            else -> Unit
-                        }
-                    }
-                    else -> throw NotImplementedError()
-                }
-            }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
             cardView.shapeAppearanceModel = Defaults.createShapeAppearanceModel()
+
+            contract = registerForActivityResult(MagnifierPermissionContract()) { output ->
+                if (output.success) {
+                    (context?.applicationContext as? ThimbleApplication)
+                        ?.setMediaProjectionPermissionData(
+                            output.resultCode,
+                            output.data
+                        )
+                    serviceActivity?.toggleMagnifier(output.success)
+                } else {
+                    if (magnifierSwitch.isChecked) {
+                        magnifierSwitch.isChecked = output.success
+                    }
+                }
+            }
         }
+    }
+
+    override fun onDestroyView() {
+        contract.unregister()
+        super.onDestroyView()
     }
 
     override fun toggleUi(enabled: Boolean) {
@@ -126,12 +114,7 @@ internal class MagnifierOverlayFragment :
         } else {
             (context?.getSystemService(Context.MEDIA_PROJECTION_SERVICE) as? MediaProjectionManager)
                 ?.createScreenCaptureIntent()
-                ?.let {
-                    startActivityForResult(
-                        it,
-                        PermissionRequest.MEDIA_PROJECTION_MAGNIFIER.requestCode
-                    )
-                }
+                ?.let { contract.launch(it) }
         }
     }
 }

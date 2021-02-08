@@ -6,8 +6,8 @@ import androidx.annotation.RestrictTo
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
-import com.infinum.thimble.ui.ServiceActivity
 import com.infinum.thimble.models.configuration.shared.Configuration
+import com.infinum.thimble.ui.ServiceActivity
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 internal abstract class AbstractOverlayFragment<CONFIGURATION : Configuration>(

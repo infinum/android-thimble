@@ -1,12 +1,13 @@
 package com.infinum.thimble.commanders.ui
 
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import com.infinum.thimble.commanders.shared.Target
 
 internal class UiCommandHandler(
     private val commandListener: UiCommandListener
-) : Handler() {
+) : Handler(Looper.getMainLooper()) {
 
     override fun handleMessage(message: Message) {
         Target(message.what)

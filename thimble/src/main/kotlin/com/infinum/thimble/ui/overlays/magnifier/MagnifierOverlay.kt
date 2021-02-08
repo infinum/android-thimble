@@ -12,6 +12,7 @@ import android.media.ImageReader
 import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
 import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -21,9 +22,9 @@ import com.infinum.thimble.databinding.ThimbleLayoutMagnifierBinding
 import com.infinum.thimble.extensions.half
 import com.infinum.thimble.extensions.screenCenter
 import com.infinum.thimble.extensions.toHalf
-import com.infinum.thimble.ui.ThimbleService
 import com.infinum.thimble.models.configuration.MagnifierConfiguration
 import com.infinum.thimble.ui.ThimbleApplication
+import com.infinum.thimble.ui.ThimbleService
 import com.infinum.thimble.ui.overlays.shared.AbstractOverlay
 import com.infinum.thimble.ui.utils.BitmapUtils
 import com.infinum.thimble.ui.utils.ViewUtils
@@ -69,9 +70,9 @@ internal class MagnifierOverlay(
             magnifierHeight,
             ViewUtils.getWindowType(true),
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                    WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS or
-                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS or
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             PixelFormat.TRANSLUCENT
         ).apply {
             this.gravity = Gravity.TOP xor Gravity.START
@@ -133,13 +134,14 @@ internal class MagnifierOverlay(
 
     private fun setupMediaProjection() {
         val size = Point()
-        windowManager.defaultDisplay.getRealSize(size)
+//        windowManager.defaultDisplay.getRealSize(size)
+        context.display?.getRealSize(size)
 
         imageReader = ImageReader.newInstance(size.x, size.y, 1, 2)
             .also {
                 it.setOnImageAvailableListener(
                     this::acquireImage,
-                    Handler()
+                    Handler(Looper.getMainLooper())
                 )
             }
 

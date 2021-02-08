@@ -12,6 +12,7 @@ import android.media.MediaRecorder
 import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
 import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -62,7 +63,8 @@ internal class RecorderOverlay(
         context.resources.getDimensionPixelSize(R.dimen.thimble_recorder_countdown_height)
 
     private val screenSize = Point().apply {
-        windowManager.defaultDisplay.getRealSize(this)
+//        windowManager.defaultDisplay.getRealSize(this)
+        context.display?.getRealSize(this)
     }
 
     private val screenCaptureLock = Any()
@@ -78,8 +80,8 @@ internal class RecorderOverlay(
             recorderHeight,
             ViewUtils.getWindowType(true),
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                    WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS or
-                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS or
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
             PixelFormat.TRANSLUCENT
         ).apply {
             this.gravity = Gravity.TOP xor Gravity.START
@@ -116,7 +118,8 @@ internal class RecorderOverlay(
                         else -> CountDown(
                             delay = configuration.recorderDelay,
                             onStep = { onCountDownTick(it) },
-                            onDone = { takeScreenshot() })
+                            onDone = { takeScreenshot() }
+                        )
                     }
                 }
                 videoButton.setOnClickListener {
@@ -128,7 +131,8 @@ internal class RecorderOverlay(
                             else -> CountDown(
                                 delay = configuration.recorderDelay,
                                 onStep = { onCountDownTick(it) },
-                                onDone = { startMediaRecorder() })
+                                onDone = { startMediaRecorder() }
+                            )
                         }
                     }
                 }
@@ -243,7 +247,7 @@ internal class RecorderOverlay(
             .also {
                 it.setOnImageAvailableListener(
                     this::acquireImage,
-                    Handler()
+                    Handler(Looper.getMainLooper())
                 )
             }
     }
@@ -308,8 +312,8 @@ internal class RecorderOverlay(
             countdownHeight,
             ViewUtils.getWindowType(true),
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                    WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS or
-                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS or
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
             PixelFormat.TRANSLUCENT
         ).apply {
             this.gravity = Gravity.TOP xor Gravity.START

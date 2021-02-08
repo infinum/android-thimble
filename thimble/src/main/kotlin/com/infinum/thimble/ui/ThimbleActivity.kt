@@ -1,54 +1,41 @@
 package com.infinum.thimble.ui
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RestrictTo
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.infinum.thimble.R
 import com.infinum.thimble.databinding.ThimbleActivityThimbleBinding
+import com.infinum.thimble.models.configuration.ThimbleConfiguration
+import com.infinum.thimble.ui.contracts.OverlayPermissionContract
 import com.infinum.thimble.ui.fragments.GridOverlayFragment
 import com.infinum.thimble.ui.fragments.MagnifierOverlayFragment
 import com.infinum.thimble.ui.fragments.MockupOverlayFragment
-import com.infinum.thimble.models.PermissionRequest
-import com.infinum.thimble.models.configuration.ThimbleConfiguration
 import com.infinum.thimble.ui.fragments.RecorderOverlayFragment
+import com.infinum.thimble.ui.shared.viewBinding
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 internal class ThimbleActivity : ServiceActivity() {
 
-    private lateinit var binding: ThimbleActivityThimbleBinding
+    private val binding by viewBinding(ThimbleActivityThimbleBinding::inflate)
+
+    private var contract: ActivityResultLauncher<Unit>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ThimbleActivityThimbleBinding.inflate(layoutInflater)
-            .also { setContentView(it.root) }
-            .also { binding = it }
-            .also {
-                setupToolbar()
-                setupUi(ThimbleConfiguration())
-                checkPermission()
-            }
+
+        setContentView(binding.root)
+
+        setupToolbar()
+        setupUi(ThimbleConfiguration())
+        checkPermission()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        PermissionRequest(requestCode)
-            ?.let { permission ->
-                when (permission) {
-                    PermissionRequest.OVERLAY -> {
-                        when (shouldCheckPermission()) {
-                            true -> permissionDenied()
-                            false -> Unit
-                        }
-                    }
-                    else -> throw NotImplementedError()
-                }
-            }
+    override fun onDestroy() {
+        contract?.unregister()
+        super.onDestroy()
     }
 
     override fun setupUi(configuration: ThimbleConfiguration) {
@@ -88,27 +75,26 @@ internal class ThimbleActivity : ServiceActivity() {
         }
     }
 
-    private fun checkPermission() =
-        when (shouldCheckPermission()) {
+    private fun checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            contract = registerForActivityResult(OverlayPermissionContract(this)) { shouldCheckPermission ->
+                when (shouldCheckPermission) {
+                    true -> permissionDenied()
+                    false -> Unit
+                }
+            }
+        }
+        return when (OverlayPermissionContract.shouldCheckPermission(this)) {
             true -> requestPermission()
             false -> Unit
         }
+    }
 
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            startActivityForResult(
-                Intent(
-                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:$packageName")
-                ),
-                PermissionRequest.OVERLAY.requestCode
-            )
+            contract?.launch(Unit)
         }
     }
-
-    private fun shouldCheckPermission() =
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                Settings.canDrawOverlays(this).not()
 
     private fun permissionDenied() {
         // TODO: Make this a Dialog with explanation and rationale

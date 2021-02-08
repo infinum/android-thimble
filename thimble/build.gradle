@@ -1,13 +1,8 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-parcelize"
 
 android {
-    buildFeatures {
-        buildConfig = false
-        viewBinding = true
-    }
-
     compileSdkVersion buildConfig.compileSdk
     buildToolsVersion buildConfig.buildTools
 
@@ -16,47 +11,56 @@ android {
         targetSdkVersion buildConfig.targetSdk
         versionCode thimble.versionCode
         versionName thimble.version
-
-        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
-        release {
+        debug {
+            testCoverageEnabled true
+            debuggable true
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.txt"
         }
     }
 
-    resourcePrefix 'thimble_'
+    resourcePrefix "thimble_"
 
-    androidExtensions {
-        features = ["parcelize"]
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    lintOptions {
-        abortOnError false
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        freeCompilerArgs += [
+//                "-Xopt-in=org.koin.core.component.KoinApiExtension",
+                "-Xexplicit-api=strict"
+        ]
     }
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+    sourceSets.each {
+        it.java.srcDirs += "src/$it.name/kotlin"
+    }
+
+    buildFeatures {
+        buildConfig = false
+        viewBinding = true
     }
 }
 
 dependencies {
     implementation packages.kotlin.core
+    implementation packages.kotlinx.coroutines
     implementation packages.androidx.core
     implementation packages.androidx.fragment
     implementation packages.androidx.constraintlayout
     implementation packages.androidx.coordinatorlayout
-    implementation packages.androidx.lifecycle.common
+    implementation packages.androidx.lifecycle.livedata
     implementation packages.google.design
     implementation packages.colorpicker
 }
 
-apply from: "bintray.gradle"
+apply from: "publish.gradle"

@@ -10,25 +10,25 @@ import com.infinum.thimble.ui.ThimbleService
 /**
  * Access only class for Thimble UI and features
  */
-object Thimble {
+public object Thimble {
 
     /**
      * Prepared a predefined Intent to launch Thimble and/or be modified before launching manually.
      */
     @JvmStatic
-    fun launchIntent() = Presentation.launchIntent()
+    public fun launchIntent(): Intent = Presentation.launchIntent()
 
     /**
      * Shows Thimble UI.
      */
     @JvmStatic
-    fun show() = Presentation.show()
+    public fun show(): Unit = Presentation.show()
 
     /**
      * Start Thimble service.
      */
     @JvmStatic
-    fun start(context: Context) =
+    public fun start(context: Context): Unit =
         ContextCompat.startForegroundService(
             context,
             Intent(context, ThimbleService::class.java).apply {
@@ -40,12 +40,11 @@ object Thimble {
      * Stop Thimble service.
      */
     @JvmStatic
-    fun stop(context: Context) {
+    public fun stop(context: Context): Unit =
         ContextCompat.startForegroundService(
             context,
             Intent(context, ThimbleService::class.java).apply {
                 action = ServiceAction.STOP.code
             }
         )
-    }
 }

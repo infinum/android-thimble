@@ -1,12 +1,13 @@
 package com.infinum.thimble.commanders.service
 
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import com.infinum.thimble.commanders.shared.Target
 
 internal class ServiceCommandHandler(
     private val commandListener: ServiceCommandListener
-) : Handler() {
+) : Handler(Looper.getMainLooper()) {
 
     override fun handleMessage(message: Message) {
         Target(message.what)

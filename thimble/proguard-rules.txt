@@ -1,0 +1,6 @@
+-keep public class com.infinum.thimble.* {
+  public protected *;
+}
+-keep public class com.infinum.thimble.Thimble {
+  public protected *;
+}

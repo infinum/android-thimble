@@ -4,9 +4,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.infinum.thimble.models.BundleKeys
+import com.infinum.thimble.models.ServiceAction
 import com.infinum.thimble.ui.ThimbleActivity
 import com.infinum.thimble.ui.ThimbleService
-import com.infinum.thimble.models.ServiceAction
 
 internal class ThimbleIntentBuilder(
     private val context: Context

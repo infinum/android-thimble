@@ -4,7 +4,7 @@ import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
 import com.infinum.thimble.models.VideoQuality
 import com.infinum.thimble.models.configuration.shared.AbstractConfiguration
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 internal data class RecorderConfiguration(

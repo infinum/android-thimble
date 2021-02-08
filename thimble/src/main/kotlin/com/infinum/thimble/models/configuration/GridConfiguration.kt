@@ -5,7 +5,7 @@ import androidx.annotation.Px
 import com.infinum.thimble.extensions.toPx
 import com.infinum.thimble.models.configuration.shared.AbstractConfiguration
 import com.infinum.thimble.ui.Defaults
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 internal data class GridConfiguration(
