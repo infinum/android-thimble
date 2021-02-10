@@ -1,5 +1,5 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
 
 android {
     compileSdkVersion buildConfig.compileSdk
@@ -23,28 +23,39 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
+            testCoverageEnabled true
+            debuggable true
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.txt"
             signingConfig signingConfigs.dummy
         }
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+    sourceSets.each {
+        it.java.srcDirs += "src/$it.name/kotlin"
+    }
+
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
     }
 }
 
 dependencies {
     implementation packages.kotlin.core
     implementation packages.androidx.core
-    api project(":thimble")
+    api packages.thimble.thimble
 }

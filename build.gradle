@@ -14,7 +14,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-//        jcenter()
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
@@ -28,6 +27,19 @@ buildscript {
 }
 
 subprojects {
+    def buildProperties = new Properties()
+    file(rootDir.absolutePath + "/build.properties").withInputStream { buildProperties.load(it) }
+    if (buildProperties.getProperty("build.debug").toBoolean()) {
+        configurations.all {
+            resolutionStrategy {
+                dependencySubstitution {
+                    substitute module(packages.thimble.thimble) with project(':thimble')
+                    substitute module(packages.thimble.thimble_no_op) with project(':thimble-no-op')
+                }
+            }
+        }
+    }
+
     repositories {
         google()
         mavenCentral()
@@ -36,8 +48,6 @@ subprojects {
                 includeModule("com.soywiz.korlibs.korte", "korte-jvm")
                 includeModule("org.jetbrains.trove4j", "trove4j")
                 includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
-                includeGroup("org.jetbrains.dokka")
-                includeGroup("org.jetbrains")
                 includeGroup("org.koin")
             }
         }
@@ -62,6 +72,7 @@ task clean(type: Delete) {
 
 task detektAll(dependsOn: [
         ':thimble:detekt',
+        ':thimble-no-op:detekt',
         ':thimble-app:detekt'
 ]) {
     group = "Verification"
@@ -70,6 +81,7 @@ task detektAll(dependsOn: [
 
 task ktlintAll(dependsOn: [
         ':thimble:ktlintCheck',
+        ':thimble-no-op:ktlintCheck',
         ':thimble-app:ktlintCheck'
 ]) {
     group = "Verification"
@@ -78,6 +90,7 @@ task ktlintAll(dependsOn: [
 
 task cpdAll(dependsOn: [
         ':thimble:cpdCheck',
+        ':thimble-no-op:cpdCheck',
         ':thimble-app:cpdCheck'
 ]) {
     group = "Verification"

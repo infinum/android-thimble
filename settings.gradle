@@ -1,3 +1,1 @@
-include ':thimble'
-include ':thimble-app'
-rootProject.name = "Thimble"
+include ":thimble", ":thimble-no-op", ":thimble-app"

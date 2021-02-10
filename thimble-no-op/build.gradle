@@ -1,6 +1,5 @@
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
-apply plugin: "kotlin-parcelize"
 
 android {
     compileSdkVersion buildConfig.compileSdk
@@ -21,7 +20,7 @@ android {
         }
         release {
             debuggable false
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.txt"
         }
     }
@@ -56,7 +55,6 @@ dependencies {
     implementation packages.kotlinx.coroutines
     implementation packages.androidx.core
     implementation packages.androidx.fragment
-    implementation packages.androidx.startup
     implementation packages.androidx.constraintlayout
     implementation packages.androidx.coordinatorlayout
     implementation packages.androidx.lifecycle.livedata

@@ -2,6 +2,7 @@ apply plugin: "cpd"
 
 cpd {
     language = 'kotlin'
+    minimumTokenCount = 100
 }
 
 cpdCheck {

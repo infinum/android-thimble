@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.infinum.thimble">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -21,12 +22,6 @@
             android:foregroundServiceType="mediaProjection" />
 
         <provider
-            android:name=".ThimbleContentProvider"
-            android:authorities="${applicationId}.ThimbleContentProvider"
-            android:enabled="true"
-            android:exported="false" />
-
-        <provider
             android:name=".RecorderDocumentsProvider"
             android:authorities="${applicationId}.documents"
             android:exported="true"
@@ -36,6 +31,15 @@
                 <action
                     android:name="android.content.action.DOCUMENTS_PROVIDER"/>
             </intent-filter>
+        </provider>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.infinum.thimble.ThimbleInitializer"
+                android:value="androidx.startup" />
         </provider>
     </application>
 

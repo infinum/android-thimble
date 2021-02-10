@@ -4,7 +4,6 @@ import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
-import com.infinum.thimble.Thimble
 
 @RequiresApi(Build.VERSION_CODES.N)
 internal class ThimbleTileService : TileService() {
@@ -19,10 +18,10 @@ internal class ThimbleTileService : TileService() {
         super.onClick()
         if (qsTile.state == Tile.STATE_INACTIVE) {
             qsTile.state = Tile.STATE_ACTIVE
-            Thimble.start(this)
+//            Thimble.start(this)
         } else {
             qsTile.state = Tile.STATE_INACTIVE
-            Thimble.stop(this)
+//            Thimble.stop(this)
         }
         qsTile.updateTile()
     }

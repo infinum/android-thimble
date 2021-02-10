@@ -3,6 +3,7 @@ package com.infinum.thimble.ui.overlays.magnifier
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.graphics.ImageFormat
 import android.graphics.PixelFormat
 import android.graphics.Point
 import android.graphics.Rect
@@ -11,6 +12,7 @@ import android.hardware.display.VirtualDisplay
 import android.media.ImageReader
 import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
@@ -134,10 +136,45 @@ internal class MagnifierOverlay(
 
     private fun setupMediaProjection() {
         val size = Point()
-//        windowManager.defaultDisplay.getRealSize(size)
-        context.display?.getRealSize(size)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            context.display?.getRealSize(size)
+        } else {
+            @Suppress("DEPRECATION")
+            windowManager.defaultDisplay.getRealSize(size)
+        }
 
-        imageReader = ImageReader.newInstance(size.x, size.y, 1, 2)
+        /*
+        Error: Must be one of:
+        ImageFormat.UNKNOWN,
+        ImageFormat.RGB_565,
+        ImageFormat.YV12,
+        ImageFormat.Y8,
+        ImageFormat.NV16,
+        ImageFormat.NV21,
+        ImageFormat.YUY2,
+        ImageFormat.JPEG,
+        ImageFormat.DEPTH_JPEG,
+        ImageFormat.YUV_420_888,
+        ImageFormat.YUV_422_888,
+        ImageFormat.YUV_444_888,
+        ImageFormat.FLEX_RGB_888,
+        ImageFormat.FLEX_RGBA_8888,
+        ImageFormat.RAW_SENSOR,
+        ImageFormat.RAW_PRIVATE,
+        ImageFormat.RAW10,
+        ImageFormat.RAW12,
+        ImageFormat.DEPTH16,
+        ImageFormat.DEPTH_POINT_CLOUD,
+        ImageFormat.PRIVATE,
+        ImageFormat.HEIC
+         */
+        imageReader = ImageReader.newInstance(
+            size.x,
+            size.y,
+            ImageFormat.RGB_565,
+//            1,
+            2
+        )
             .also {
                 it.setOnImageAvailableListener(
                     this::acquireImage,
