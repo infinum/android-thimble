@@ -59,7 +59,6 @@ subprojects {
     apply from: "$rootDir/dokka.gradle"
 }
 
-apply from: "shared.gradle"
 apply from: "deploy.gradle"
 
 tasks.withType(JavaCompile) {
@@ -70,13 +69,22 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+task lintAll(dependsOn: [
+        ':thimble:lintRelease',
+        ':thimble-no-op:lintRelease',
+        ':thimble-app:lintRelease'
+]) {
+    group = "Verification"
+    description = "Run Detekt on all modules"
+}
+
 task detektAll(dependsOn: [
         ':thimble:detekt',
         ':thimble-no-op:detekt',
         ':thimble-app:detekt'
 ]) {
     group = "Verification"
-    description = "Run detekt on all modules"
+    description = "Run Detekt on all modules"
 }
 
 task ktlintAll(dependsOn: [
@@ -85,7 +93,7 @@ task ktlintAll(dependsOn: [
         ':thimble-app:ktlintCheck'
 ]) {
     group = "Verification"
-    description = "Run ktlintCheck on all modules"
+    description = "Run ktlint on all modules"
 }
 
 task cpdAll(dependsOn: [
@@ -94,14 +102,15 @@ task cpdAll(dependsOn: [
         ':thimble-app:cpdCheck'
 ]) {
     group = "Verification"
-    description = "Run cpdCheck on all modules"
+    description = "Run CPD on all modules"
 }
 
-task runStaticChecks(dependsOn: ordered(
+task runStaticChecks(dependsOn: [
+        ':lintAll',
         ':detektAll',
         ':ktlintAll',
         ':cpdAll'
-)) {
+]) {
     group = "Verification"
     description = "Run static checks on all modules"
 }

@@ -7,12 +7,12 @@ ext.thimble = [
 ext.versions = [
         "thimble"          : "1.0.0",
         "gradle"           : "4.1.2",
-        "kotlin"           : "1.4.30",
+        "kotlin"           : "1.4.31",
         "coroutines"       : "1.4.2",
         "core"             : "1.3.2",
         "appcompat"        : "1.2.0",
-        "fragment"         : "1.3.0-rc02",
-        "lifecycle"        : "2.3.0-rc01",
+        "fragment"         : "1.3.0",
+        "lifecycle"        : "2.3.0",
         "startup"          : "1.0.0",
         "constraintlayout" : "2.0.4",
         "coordinatorlayout": "1.1.0",
@@ -21,7 +21,7 @@ ext.versions = [
         "koin"             : "2.2.2",
         "timber"           : "4.7.1",
         "detekt"           : "1.15.0",
-        "ktlint"           : "9.4.1",
+        "ktlint"           : "10.0.0",
         "cpd"              : "3.1",
         "dokka"            : "1.4.20"
 ]
