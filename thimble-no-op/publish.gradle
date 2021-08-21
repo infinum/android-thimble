@@ -30,19 +30,11 @@ afterEvaluate {
                     password github.password()
                 }
             }
-            maven {
-                name bintray.name()
-                url bintray.url() + "/thimble-no-op/;publish=1;override=1"
-                credentials {
-                    username bintray.username()
-                    password bintray.password()
-                }
-            }
         }
         publications {
             release(MavenPublication) {
-                groupId = thimble.group
-                version = thimble.version
+                groupId = releaseConfig.group
+                version = releaseConfig.version
 
                 artifactId = "thimble-no-op"
 

@@ -1,8 +1,25 @@
 task deployThimble(dependsOn: [
-        ':thimble:build',
-        ':thimble:install',
-        ':thimble:bintrayUpload'
+        ':thimble:clean',
+        ':thimble:publishReleasePublicationToSonatypeRepository'
 ]) {
     group = "Deploy"
-    description = "Deploy module to Bintray"
+    description = "Deploy module to repositories"
+}
+
+task deployThimbleNoOp(dependsOn: [
+        ':thimble-no-op:clean',
+        ':thimble-no-op:publishReleasePublicationToSonatypeRepository'
+]) {
+    group = "Deploy"
+    description = "Deploy module to repositories"
+}
+
+task deployDebug(dependsOn: [
+        ':thimble:clean',
+        ':thimble-no-op:clean',
+        ':thimble:publishReleasePublicationToMavenLocal',
+        ':thimble-no-op:publishReleasePublicationToMavenLocal'
+]) {
+    group = "Deploy"
+    description = "Deploy all modules to Mavel Local repository"
 }

@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion buildConfig.minSdk
         targetSdkVersion buildConfig.targetSdk
-        versionCode thimble.versionCode
-        versionName thimble.version
+        versionCode releaseConfig.versionCode
+        versionName releaseConfig.version
     }
 
     buildTypes {
@@ -35,7 +35,6 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
         freeCompilerArgs += [
-//                "-Xopt-in=org.koin.core.component.KoinApiExtension",
                 "-Xexplicit-api=strict"
         ]
         useIR = true

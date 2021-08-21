@@ -8,9 +8,10 @@ android {
     defaultConfig {
         minSdkVersion buildConfig.minSdk
         targetSdkVersion buildConfig.targetSdk
-        versionCode thimble.versionCode
-        versionName thimble.version
-        applicationId "com.infinum.thimble.app"
+        versionCode releaseConfig.versionCode
+        versionName releaseConfig.version
+        applicationId releaseConfig.group
+        applicationIdSuffix ".app"
     }
 
     signingConfigs {

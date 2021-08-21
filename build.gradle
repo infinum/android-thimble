@@ -1,13 +1,6 @@
 buildscript {
 
-    ext.buildConfig = [
-            "minSdk"    : 21,
-            "compileSdk": 30,
-            "targetSdk" : 30,
-
-            "buildTools": "30.0.3"
-    ]
-
+    apply from: "config.gradle"
     apply from: "maven.gradle"
     apply from: "dependencies.gradle"
 
@@ -27,30 +20,10 @@ buildscript {
 }
 
 subprojects {
-    def buildProperties = new Properties()
-    file(rootDir.absolutePath + "/build.properties").withInputStream { buildProperties.load(it) }
-    if (buildProperties.getProperty("build.debug").toBoolean()) {
-        configurations.all {
-            resolutionStrategy {
-                dependencySubstitution {
-                    substitute module(packages.thimble.thimble) with project(':thimble')
-                    substitute module(packages.thimble.thimble_no_op) with project(':thimble-no-op')
-                }
-            }
-        }
-    }
-
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
-        jcenter() {
-            content {
-                includeModule("com.soywiz.korlibs.korte", "korte-jvm")
-                includeModule("org.jetbrains.trove4j", "trove4j")
-                includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
-                includeGroup("org.koin")
-            }
-        }
     }
 
     apply from: "$rootDir/cpd.gradle"

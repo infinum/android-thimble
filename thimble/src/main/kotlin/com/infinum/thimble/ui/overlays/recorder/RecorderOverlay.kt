@@ -248,36 +248,12 @@ internal class RecorderOverlay(
         }
     }
 
-    /*
-Error: Must be one of:
-ImageFormat.UNKNOWN,
-ImageFormat.RGB_565,
-ImageFormat.YV12,
-ImageFormat.Y8,
-ImageFormat.NV16,
-ImageFormat.NV21,
-ImageFormat.YUY2,
-ImageFormat.JPEG,
-ImageFormat.DEPTH_JPEG,
-ImageFormat.YUV_420_888,
-ImageFormat.YUV_422_888,
-ImageFormat.YUV_444_888,
-ImageFormat.FLEX_RGB_888,
-ImageFormat.FLEX_RGBA_8888,
-ImageFormat.RAW_SENSOR,
-ImageFormat.RAW_PRIVATE,
-ImageFormat.RAW10,
-ImageFormat.RAW12,
-ImageFormat.DEPTH16,
-ImageFormat.DEPTH_POINT_CLOUD,
-ImageFormat.PRIVATE,
-ImageFormat.HEIC
- */
     private fun setupImageReader() {
+        //noinspection WrongConstant
         imageReader = ImageReader.newInstance(
             screenSize.x,
             screenSize.y,
-            ImageFormat.RGB_565,
+            PixelFormat.RGBA_8888,
 //            1,
             2
         )
