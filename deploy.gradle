@@ -14,6 +14,14 @@ task deployThimbleNoOp(dependsOn: [
     description = "Deploy module to repositories"
 }
 
+task deployAll(dependsOn: [
+        'deployThimble',
+        'deployThimbleNoOp'
+]) {
+    group = "Deploy"
+    description = "Deploy all modules to repositories"
+}
+
 task deployDebug(dependsOn: [
         ':thimble:clean',
         ':thimble-no-op:clean',
