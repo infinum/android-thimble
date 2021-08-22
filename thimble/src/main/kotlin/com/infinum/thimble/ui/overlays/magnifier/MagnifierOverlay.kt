@@ -3,7 +3,6 @@ package com.infinum.thimble.ui.overlays.magnifier
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.graphics.ImageFormat
 import android.graphics.PixelFormat
 import android.graphics.Point
 import android.graphics.Rect
@@ -12,7 +11,6 @@ import android.hardware.display.VirtualDisplay
 import android.media.ImageReader
 import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
@@ -34,7 +32,8 @@ import com.infinum.thimble.ui.views.magnifier.MagnifierView
 import kotlin.math.roundToInt
 
 internal class MagnifierOverlay(
-    private val context: Context
+    private val context: Context,
+    private val screenSize: Point
 ) : AbstractOverlay<MagnifierConfiguration>(context) {
 
     private var configuration: MagnifierConfiguration = MagnifierConfiguration()
@@ -135,18 +134,10 @@ internal class MagnifierOverlay(
     }
 
     private fun setupMediaProjection() {
-        val size = Point()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            context.display?.getRealSize(size)
-        } else {
-            @Suppress("DEPRECATION")
-            windowManager.defaultDisplay.getRealSize(size)
-        }
-
         //noinspection WrongConstant
         imageReader = ImageReader.newInstance(
-            size.x,
-            size.y,
+            screenSize.x,
+            screenSize.y,
             PixelFormat.RGBA_8888,
 //            1,
             2
@@ -169,8 +160,8 @@ internal class MagnifierOverlay(
             }
         virtualDisplay = mediaProjection?.createVirtualDisplay(
             "${ThimbleService::class.java.simpleName}_${MagnifierOverlay::class.java.simpleName}",
-            size.x,
-            size.y,
+            screenSize.x,
+            screenSize.y,
             context.resources.displayMetrics.densityDpi,
             DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
             imageReader?.surface,

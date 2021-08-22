@@ -179,7 +179,7 @@ internal class GridOverlayFragment :
                     .setTitle(
                         String.format(
                             getString(R.string.thimble_color_picker_template_title),
-                            orientation.name.toLowerCase(Locale.getDefault())
+                            orientation.name.lowercase(Locale.getDefault())
                         )
                     )
                     .setView(it.root)

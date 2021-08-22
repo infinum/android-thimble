@@ -3,7 +3,6 @@ package com.infinum.thimble.ui.overlays.recorder
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.graphics.ImageFormat
 import android.graphics.PixelFormat
 import android.graphics.Point
 import android.hardware.display.DisplayManager
@@ -12,7 +11,6 @@ import android.media.ImageReader
 import android.media.MediaRecorder
 import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
@@ -41,7 +39,8 @@ import com.infinum.thimble.ui.views.recorder.RecorderView
 import kotlin.math.roundToInt
 
 internal class RecorderOverlay(
-    private val context: Context
+    private val context: Context,
+    private val screenSize: Point
 ) : AbstractOverlay<RecorderConfiguration>(context) {
 
     private var configuration: RecorderConfiguration = RecorderConfiguration()
@@ -63,15 +62,6 @@ internal class RecorderOverlay(
 
     private val countdownHeight: Int =
         context.resources.getDimensionPixelSize(R.dimen.thimble_recorder_countdown_height)
-
-    private val screenSize = Point().apply {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            context.display?.getRealSize(this)
-        } else {
-            @Suppress("DEPRECATION")
-            windowManager.defaultDisplay.getRealSize(this)
-        }
-    }
 
     private val screenCaptureLock = Any()
 

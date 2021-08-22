@@ -190,7 +190,7 @@ internal class RecorderOverlayFragment :
                             String.format(
                                 getString(
                                     R.string.thimble_file_picker_template_title,
-                                    FileTarget.SCREENSHOT.name.toLowerCase(Locale.getDefault())
+                                    FileTarget.SCREENSHOT.name.lowercase(Locale.getDefault())
                                 )
                             )
                         )
@@ -244,7 +244,7 @@ internal class RecorderOverlayFragment :
                             String.format(
                                 getString(
                                     R.string.thimble_file_picker_template_title,
-                                    FileTarget.VIDEO.name.toLowerCase(Locale.getDefault())
+                                    FileTarget.VIDEO.name.lowercase(Locale.getDefault())
                                 )
                             )
                         )

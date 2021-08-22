@@ -20,6 +20,7 @@ import com.infinum.thimble.ui.utils.FileUtils
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
+import java.util.Locale
 import java.util.PriorityQueue
 import kotlin.math.min
 
@@ -254,7 +255,6 @@ internal class RecorderDocumentsProvider : DocumentsProvider() {
      * Gets a string of unique MIME data types a directory supports, separated by newlines.  This
      * should not change.
      *
-     * @param parent the File for the parent directory
      * @return a string of the unique MIME data types the parent directory supports
      */
     private fun supportedMimeTypes(): String =
@@ -299,7 +299,7 @@ internal class RecorderDocumentsProvider : DocumentsProvider() {
      * Add a representation of a file to a cursor.
      *
      * @param result the cursor to modify
-     * @param docId  the document ID representing the desired file (may be null if given file)
+     * @param documentId  the document ID representing the desired file (may be null if given file)
      * @param file   the File object representing the desired file (may be null if given docID)
      * @throws java.io.FileNotFoundException
      */
@@ -324,7 +324,13 @@ internal class RecorderDocumentsProvider : DocumentsProvider() {
                 add(DocumentsContract.Document.COLUMN_DOCUMENT_ID, desiredDocumentId)
                 add(
                     DocumentsContract.Document.COLUMN_DISPLAY_NAME,
-                    if (it.isDirectory) it.name.capitalize() else it.name
+                    if (it.isDirectory) it.name.replaceFirstChar { char ->
+                        if (char.isLowerCase()) {
+                            char.titlecase(Locale.getDefault())
+                        } else {
+                            char.toString()
+                        }
+                    } else it.name
                 )
                 add(DocumentsContract.Document.COLUMN_SIZE, it.length())
                 add(DocumentsContract.Document.COLUMN_MIME_TYPE, mimeType)

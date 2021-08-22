@@ -14,5 +14,6 @@ internal enum class BundleKeys {
     RECORDER_DELAY,
     SCREENSHOT_COMPRESSION,
     RECORDER_AUDIO,
-    VIDEO_QUALITY
+    VIDEO_QUALITY,
+    SCREEN_SIZE
 }

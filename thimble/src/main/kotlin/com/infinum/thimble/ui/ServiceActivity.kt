@@ -3,6 +3,8 @@ package com.infinum.thimble.ui
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
+import android.graphics.Point
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.os.Messenger
@@ -185,10 +187,19 @@ internal abstract class ServiceActivity : FragmentActivity() {
     }
 
     private fun startService() {
+        val screenSize = Point().apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                display?.getRealSize(this)
+            } else {
+                @Suppress("DEPRECATION")
+                windowManager.defaultDisplay.getRealSize(this)
+            }
+        }
         ContextCompat.startForegroundService(
             this,
             Intent(this, ThimbleService::class.java).apply {
                 action = ServiceAction.START.code
+                putExtra(BundleKeys.SCREEN_SIZE.name, screenSize)
             }
         )
     }

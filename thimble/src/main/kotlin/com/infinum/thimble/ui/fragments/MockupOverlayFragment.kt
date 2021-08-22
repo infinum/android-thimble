@@ -122,7 +122,7 @@ internal class MockupOverlayFragment :
                         String.format(
                             getString(
                                 R.string.thimble_image_picker_template_title,
-                                MockupOrientation.PORTRAIT.name.toLowerCase(Locale.getDefault())
+                                MockupOrientation.PORTRAIT.name.lowercase(Locale.getDefault())
                             )
                         )
                     )
@@ -141,7 +141,7 @@ internal class MockupOverlayFragment :
                         String.format(
                             getString(
                                 R.string.thimble_image_picker_template_title,
-                                MockupOrientation.LANDSCAPE.name.toLowerCase(Locale.getDefault())
+                                MockupOrientation.LANDSCAPE.name.lowercase(Locale.getDefault())
                             )
                         )
                     )

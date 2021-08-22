@@ -10,26 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
 
-        <activity android:name="com.infinum.thimble.ui.ThimbleActivity">
+        <activity
+            android:name="com.infinum.thimble.ui.ThimbleActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-<!--        TODO: Decide what to do with this and how to finish it -->
-<!--        <service-->
-<!--            android:name=".ThimbleTileService"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="true"-->
-<!--            android:icon="@drawable/thimble_ic_logo_tile"-->
-<!--            android:label="@string/thimble_name"-->
-<!--            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.service.quicksettings.action.QS_TILE" />-->
-<!--            </intent-filter>-->
-<!--        </service>-->
 
     </application>
 

@@ -3,6 +3,7 @@ package com.infinum.thimble.ui
 import android.app.Service
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Point
 import android.os.IBinder
 import android.os.Messenger
 import androidx.annotation.RestrictTo
@@ -42,18 +43,15 @@ internal class ThimbleService : Service() {
         super.onCreate()
 
         notifications = ThimbleNotificationBuilder(this)
-
-        gridOverlay = GridOverlay(this)
-        mockupOverlay = MockupOverlay(this)
-        magnifierOverlay = MagnifierOverlay(this)
-        recorderOverlay = RecorderOverlay(this)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.action?.let {
             ServiceAction(it)?.let { action ->
                 when (action) {
-                    ServiceAction.START -> startService()
+                    ServiceAction.START -> startService(
+                        intent.getParcelableExtra<Point>(BundleKeys.SCREEN_SIZE.name)!!
+                    )
                     ServiceAction.STOP -> stopService()
                     ServiceAction.RESET -> resetOverlays()
                     ServiceAction.GRID -> toggleGrid(
@@ -295,7 +293,12 @@ internal class ThimbleService : Service() {
         }
     }
 
-    private fun startService() {
+    private fun startService(screenSize: Point) {
+        gridOverlay = GridOverlay(this)
+        mockupOverlay = MockupOverlay(this)
+        magnifierOverlay = MagnifierOverlay(this, screenSize)
+        recorderOverlay = RecorderOverlay(this, screenSize)
+
         configuration = configuration.copy(enabled = true)
 
         if (isRunning) {
