@@ -4,7 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RestrictTo
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.infinum.thimble.R
 import com.infinum.thimble.databinding.ThimbleActivityThimbleBinding
@@ -15,6 +15,7 @@ import com.infinum.thimble.ui.fragments.MagnifierOverlayFragment
 import com.infinum.thimble.ui.fragments.MockupOverlayFragment
 import com.infinum.thimble.ui.fragments.RecorderOverlayFragment
 import com.infinum.thimble.ui.shared.viewBinding
+import timber.log.Timber
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 internal class ThimbleActivity : ServiceActivity() {
@@ -27,6 +28,15 @@ internal class ThimbleActivity : ServiceActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(binding.root)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            contract = registerForActivityResult(OverlayPermissionContract(this)) { canDrawOverlays ->
+                when (canDrawOverlays) {
+                    false -> showPermission()
+                    true -> Unit
+                }
+            }
+        }
 
         setupToolbar()
         setupUi(ThimbleConfiguration())
@@ -76,32 +86,30 @@ internal class ThimbleActivity : ServiceActivity() {
     }
 
     private fun checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            contract = registerForActivityResult(OverlayPermissionContract(this)) { shouldCheckPermission ->
-                when (shouldCheckPermission) {
-                    true -> permissionDenied()
-                    false -> Unit
-                }
-            }
-        }
-        return when (OverlayPermissionContract.shouldCheckPermission(this)) {
-            true -> requestPermission()
-            false -> Unit
+        if (!OverlayPermissionContract.canDrawOverlays(this)) {
+            showPermission()
         }
     }
+
+    private fun showPermission() =
+        MaterialAlertDialogBuilder(this)
+            .setCancelable(false)
+            .setTitle(R.string.thimble_name)
+            .setMessage(R.string.thimble_message_permission_error)
+            .setPositiveButton(R.string.thimble_allow) { dialog, _ ->
+                dialog.dismiss()
+                requestPermission()
+            }
+            .setNegativeButton(R.string.thimble_deny) { dialog, _ ->
+                dialog.dismiss()
+                finish()
+            }
+            .create()
+            .show()
 
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             contract?.launch(Unit)
         }
-    }
-
-    private fun permissionDenied() {
-        // TODO: Make this a Dialog with explanation and rationale
-        Snackbar.make(
-            binding.root,
-            "Overlay permission denied",
-            Snackbar.LENGTH_SHORT
-        ).show()
     }
 }

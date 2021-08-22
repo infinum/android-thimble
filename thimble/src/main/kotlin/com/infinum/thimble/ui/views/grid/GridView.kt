@@ -75,6 +75,7 @@ internal class GridView @JvmOverloads constructor(
         invalidate()
     }
 
+    @Suppress("MagicNumber")
     private fun updateGrid(width: Int, height: Int) {
         val numHorizontalLines = height / gridSizeHorizontal
         val numVerticalLines = width / gridSizeVertical

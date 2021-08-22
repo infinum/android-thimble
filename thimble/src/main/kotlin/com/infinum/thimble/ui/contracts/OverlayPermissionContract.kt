@@ -15,8 +15,8 @@ internal class OverlayPermissionContract(
 ) : ActivityResultContract<Unit, Boolean>() {
 
     companion object {
-        fun shouldCheckPermission(context: Context) =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(context).not()
+        fun canDrawOverlays(context: Context): Boolean =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(context.applicationContext)
     }
 
     override fun createIntent(context: Context, input: Unit): Intent =
@@ -27,7 +27,7 @@ internal class OverlayPermissionContract(
 
     override fun parseResult(resultCode: Int, intent: Intent?): Boolean =
         if (resultCode == Activity.RESULT_OK) {
-            shouldCheckPermission(context)
+            canDrawOverlays(context.applicationContext)
         } else {
             false
         }

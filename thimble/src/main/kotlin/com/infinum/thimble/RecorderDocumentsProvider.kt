@@ -61,7 +61,7 @@ internal class RecorderDocumentsProvider : DocumentsProvider() {
 
         baseDir = context?.let {
             FileUtils.createOrUseRoot(it)
-        } ?: throw NullPointerException()
+        } ?: throw NullPointerException("Context cannot be null.")
 
         return true
     }
@@ -171,7 +171,7 @@ internal class RecorderDocumentsProvider : DocumentsProvider() {
     private fun thumbnailFileForDocumentId(file: File, sizeHint: Point): File {
         val mimeType = typeForFile(file)
         val tempFile: File = context?.cacheDir?.let { File.createTempFile("thumbnail", null, it) }
-            ?: throw NullPointerException()
+            ?: throw NullPointerException("Temporary file cannot be null.")
         val size = Size(2 * sizeHint.x, 2 * sizeHint.y)
 
         val bitmap = if (mimeType.startsWith("image/")) {

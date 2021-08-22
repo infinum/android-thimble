@@ -9,6 +9,8 @@
     <string name="thimble_stop">Stop</string>
     <string name="thimble_close">Close</string>
     <string name="thimble_clear">Clear</string>
+    <string name="thimble_allow">Allow</string>
+    <string name="thimble_deny">Deny</string>
 
     <string name="thimble_overlay_title_grid">Grid overlay</string>
     <string name="thimble_overlay_title_mockup">Mockup overlay</string>
@@ -57,5 +59,7 @@
 
     <string name="thimble_message_mockup_cleared">Mockup image cleared.</string>
     <string name="thimble_message_mockup_error">Cannot set mockup image.</string>
+
+    <string name="thimble_message_permission_error">Thimble must have android.settings.action.MANAGE_OVERLAY_PERMISSION allowed in order to draw on top of other applications as a part of its core functionality.</string>
 
 </resources>

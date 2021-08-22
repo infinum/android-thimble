@@ -5,3 +5,15 @@
 -keep public class com.infinum.thimble.Thimble {
   public protected *;
 }
+-keep public class com.infinum.thimble.ui.fragments.GridOverlayFragment {
+  public protected *;
+}
+-keep public class com.infinum.thimble.ui.fragments.MagnifierOverlayFragment {
+  public protected *;
+}
+-keep public class com.infinum.thimble.ui.fragments.MockupOverlayFragment {
+  public protected *;
+}
+-keep public class com.infinum.thimble.ui.fragments.RecorderOverlayFragment {
+  public protected *;
+}

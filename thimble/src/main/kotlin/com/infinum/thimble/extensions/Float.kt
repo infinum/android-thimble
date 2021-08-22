@@ -9,8 +9,10 @@ internal fun Float.toPx(): Int =
 internal fun Float.toHalf(): Float =
     this / 2.0f
 
+@Suppress("MagicNumber")
 internal fun Float.fromPercentage(): Float =
     this / 100.0f
 
+@Suppress("MagicNumber")
 internal fun Float.toPercentage(multiplier: Int = 100): String =
     "${(this * multiplier).roundToInt()}%"

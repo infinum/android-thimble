@@ -31,6 +31,7 @@ internal object Defaults {
         return ContextCompat.getColor(context, R.color.thimble_color_grid_vertical)
     }
 
+    @Suppress("MagicNumber")
     fun createShapeAppearanceModel(): ShapeAppearanceModel =
         listOf(
             Pair(

@@ -15,8 +15,12 @@ internal class MockupView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : AppCompatImageView(context, attrs, defStyleAttr) {
 
+    companion object {
+        private const val DEFAULT_OPACITY = 0.2f
+    }
+
     @FloatRange(from = 0.0, to = 1.0)
-    private var opacity: Float = 0.2f
+    private var opacity: Float = DEFAULT_OPACITY
 
     private var portraitUri: Uri? = null
     private var landscapeUri: Uri? = null

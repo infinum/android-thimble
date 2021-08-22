@@ -22,6 +22,7 @@ internal fun Int.getRGBCode(): String {
     return String.format(Locale.getDefault(), "R: %s\nG: %s\nB: %s", r, g, b)
 }
 
+@Suppress("MagicNumber")
 internal fun Int.getHSVCode(): String {
     val hsv = FloatArray(3)
     Color.colorToHSV(this, hsv)

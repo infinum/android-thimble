@@ -22,6 +22,7 @@ import com.infinum.thimble.ui.overlays.grid.GridOverlay
 import com.infinum.thimble.ui.overlays.magnifier.MagnifierOverlay
 import com.infinum.thimble.ui.overlays.mockup.MockupOverlay
 import com.infinum.thimble.ui.overlays.recorder.RecorderOverlay
+import timber.log.Timber
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 internal class ThimbleService : Service() {
@@ -333,7 +334,7 @@ internal class ThimbleService : Service() {
             stopForeground(true)
             stopSelf()
         } catch (e: Exception) {
-            e.printStackTrace()
+            Timber.e(e)
         }
         isRunning = false
     }
