@@ -1,1 +1,7 @@
-include ":thimble", ":thimble-no-op", ":thimble-app"
+enableFeaturePreview("VERSION_CATALOGS")
+
+rootProject.name="Thimble"
+
+include ":thimble"
+include ":thimble-no-op"
+include ":thimble-app"

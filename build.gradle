@@ -2,20 +2,19 @@ buildscript {
 
     apply from: "config.gradle"
     apply from: "maven.gradle"
-    apply from: "dependencies.gradle"
 
     repositories {
         google()
         mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
+        gradlePluginPortal()
     }
     dependencies {
-        classpath packages.gradle
-        classpath packages.kotlin.plugin
-        classpath packages.cpd.plugin
-        classpath packages.detekt.plugin
-        classpath packages.ktlint.plugin
-        classpath packages.dokka.plugin
+        classpath libs.tools.gradle
+        classpath libs.kotlin.gradle
+        classpath libs.cpd
+        classpath libs.detekt.gradle
+        classpath libs.ktlint
+        classpath libs.dokka
     }
 }
 
